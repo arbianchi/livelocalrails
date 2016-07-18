@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  post '/test' => 'users#test'
+  resources :users
 
   root 'users#test'
 
