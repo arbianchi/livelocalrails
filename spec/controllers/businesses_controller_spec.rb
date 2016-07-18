@@ -6,8 +6,8 @@ RSpec.describe BusinessesController, type: :controller do
     expect(response).to have_http_status(:ok)
   end
 
-  xit "makes show.json available" do
-    get "/businesses/1.json"
+  it "makes show.json available" do
+    get :show, :format => :json, :id => 1
     expect(response).to have_http_status(:ok)
   end
 end
