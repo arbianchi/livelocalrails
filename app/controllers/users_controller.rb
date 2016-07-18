@@ -5,13 +5,23 @@ class UsersController < ApplicationController
 
   def user_data
     [{
+      :id => 1,
       :username => "username",
+      :first_name => "Joe",
+      :last_name => "Shmo",
       :email => "email@email.com",
+      :zipcode => "27701",
+      :survey => []
     }]
   end
 
   def show
     @user = User.find params[:id]
+
+    respond_to do |format|
+      format.json {render json: user_data }
+      format.html { not_found }
+    end
   end
 
   def index

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  get '/test' => 'users#index'
+  resources :users
 
   root 'users#test'
 
