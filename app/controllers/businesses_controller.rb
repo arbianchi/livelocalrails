@@ -7,7 +7,8 @@ class BusinessesController < ApplicationController
     end
   end
 
-  def show
+ def show
+   binding.pry
     @business = Business.find(params[:id])
     respond_to do |format|
       format.json { render json: business_mockup }
@@ -70,14 +71,14 @@ class BusinessesController < ApplicationController
     [{
       "name": "Billy's Gumbo and Fancy Hat Emporium",
       "owner": "Billy Joe",
-      "survey" => [1,2],
-      "profile" => [1,2]
+      "survey" => [],
+      "profile" => []
      },
      {
      "name": "Grits and Grand Galleria.",
-     "owner": "Marie Francis",
-     "survey" => [1,2],
-     "profile" => [1,2]
+      "owner": "Marie Francis",
+     "survey" => [],
+     "profile" => []
     }]
   end
 end
