@@ -8,12 +8,11 @@ class BusinessesController < ApplicationController
   end
 
  def show
-   binding.pry
-    @business = Business.find(params[:id])
-    respond_to do |format|
-      format.json { render json: business_mockup }
-      format.html { not_found }
-    end
+   #@business = Business.find(params[:id])
+   respond_to do |format|
+     format.json { render json: business_mockup }
+     format.html { not_found }
+   end
   end
 
   def new
@@ -64,7 +63,7 @@ class BusinessesController < ApplicationController
   end
 
   def business_mockup
-    business_mockup.first
+    businesses_mockup.first
   end
 
   def businesses_mockup
@@ -75,7 +74,7 @@ class BusinessesController < ApplicationController
       "profile" => []
      },
      {
-     "name": "Grits and Grand Galleria.",
+     "name": "Grits and Grand Galleria",
       "owner": "Marie Francis",
      "survey" => [],
      "profile" => []
