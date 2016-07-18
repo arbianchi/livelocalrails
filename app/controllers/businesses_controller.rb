@@ -63,7 +63,7 @@ class BusinessesController < ApplicationController
   end
 
   def yelp ops={}
-    city = ops[:city] ||= 'Durham'
+    location = ops[:location] ||= 'Durham'
     term = ops[:term] ||= 'food'
 
     Yelp.client.search(city,term)
@@ -77,14 +77,19 @@ class BusinessesController < ApplicationController
     [{
       "name": "Billy's Gumbo and Fancy Hat Emporium",
       "owner": "Billy Joe",
-      "survey" => [],
-      "profile" => []
-     },
-     {
-     "name": "Grits and Grand Galleria",
-      "owner": "Marie Francis",
-     "survey" => [],
-     "profile" => []
+      "description": "great restaurant"
+      "phone": "2036876161"
+      "zipcode": "27701"
+      "business_url": "www.tiy.com" 
+      "image_url": "https://s3-media2.flash.yelpcdn.com/bphoto/o3w3EoATG8RX4w4FHrHpiw/ms.jpg"
+      "categories": ["gumbo","hats"]
+      # "profile" => []
+     # },
+     # {
+     # "name": "Grits and Grand Galleria",
+     #  "owner": "Marie Francis",
+     # "survey" => [],
+     # "profile" => []
     }]
   end
 end
