@@ -69,6 +69,16 @@ class BusinessesController < ApplicationController
     Yelp.client.search(city,term)
   end
 
+  def find_business zip, term
+    yelp
+    results = resp.businesses
+
+    respond_to do |format|
+      format.json { render json: top_result}
+      format.html { not_found }
+    end
+  end
+
   def business_mockup
     businesses_mockup.first
   end
