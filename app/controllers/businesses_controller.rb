@@ -62,6 +62,13 @@ class BusinessesController < ApplicationController
     redirect_to '/404'
   end
 
+  def yelp ops={}
+    city = ops[:city] ||= 'Durham'
+    term = ops[:term] ||= 'food'
+
+    Yelp.client.search(city,term)
+  end
+
   def business_mockup
     businesses_mockup.first
   end
