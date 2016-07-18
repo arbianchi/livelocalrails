@@ -1,14 +1,6 @@
 require 'rails_helper'
-# require 'spec_helper'
 
-# feature 'Visitor signs up' do
-#   scenario 'with valid email and password' do
-#     sign_up_with 'valid@example.com', 'password'
-
-#     expect(page).to have_content('Sign out')
-#   end
-# end
-Rspec.describe "the sign up process", :type => :feature do
+RSpec.describe "the sign up process", :type => :feature do
 
   it "signs me up" do
     visit '/users/sign_up'
@@ -18,7 +10,7 @@ Rspec.describe "the sign up process", :type => :feature do
       fill_in 'Password Confirmation', :with => 'password'
     end
     click_button 'Sign up'
-    expect(page).to have_content 'Yay!'
+    expect(page).to have_content 'Welcome!'
   end
 end
 
@@ -34,6 +26,6 @@ describe "the login process", :type => :feature do
       fill_in 'Password', :with => 'password'
     end
     click_button 'Log in'
-    expect(page).to have_content 'Yay!'
+    expect(page).to have_content 'Welcome!'
   end
 end
