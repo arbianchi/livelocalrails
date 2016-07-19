@@ -137,6 +137,7 @@ GEM
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
+    omniauth-yelp (0.0.1)
     orm_adapter (0.5.0)
     pg (0.18.4)
     pkg-config (1.1.7)
@@ -268,6 +269,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   listen (~> 3.0.5)
+  omniauth-yelp
   pg (~> 0.18)
   pry-rails
   puma (~> 3.0)
