@@ -27,7 +27,8 @@ class BusinessesController < ApplicationController
   def edit
     @business = Business.find(params[:id])
     respond_to do |format|
-      format.json { render json: business_mockup }
+      format.json
+ 
       format.html { not_found }
     end
   end
@@ -57,11 +58,22 @@ class BusinessesController < ApplicationController
     redirect_to '/'
   end
 
+  def find_business 
+    resp = yelp({location: params[:location],term: params[:term]})
+    results = resp.businesses
+
+    respond_to do |format|
+      format.json { render json: results}
+      format.html { not_found }
+    end
+  end
+
   private
 
   def not_found
     redirect_to '/404'
   end
+
 
   def yelp ops={}
     location = ops[:location] ||= 'Anchorage'
@@ -82,6 +94,7 @@ class BusinessesController < ApplicationController
   def zip_code
     27701
   end
+
 
   def business_mockup
     businesses_mockup.first

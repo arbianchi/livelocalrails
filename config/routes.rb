@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  get '/test' => 'users#test'
+  get '/find' => 'businesses#find_business'
 
   resources :users
 
@@ -9,5 +9,9 @@ Rails.application.routes.draw do
 
   resources :questions
   resources :businesses
+
+
+
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
