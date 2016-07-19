@@ -1,7 +1,5 @@
-class UsersController < ApplicationController
-
-  def test
-  end
+pclass UsersController < ApplicationController
+  skip_after_action :verify_authorized, only: [:sign_up, :sign_in]
 
   def user_data
     [{
