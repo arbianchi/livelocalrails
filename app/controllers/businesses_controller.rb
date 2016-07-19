@@ -1,8 +1,9 @@
 class BusinessesController < ApplicationController
- def index
-    @businesses = Business.all
+  def index
+    @businesses = yelp(approved_params)
+
     respond_to do |format|
-      format.json { render json: businesses_mockup }
+      format.json { render json: @businesses.to_json }
       format.html { redirect_to '/404' }
     end
   end
@@ -27,7 +28,6 @@ class BusinessesController < ApplicationController
     @business = Business.find(params[:id])
     respond_to do |format|
       format.json
-    #yelp(27701, term: 'The Pinhook')
  
       format.html { not_found }
     end
@@ -76,10 +76,23 @@ class BusinessesController < ApplicationController
 
 
   def yelp ops={}
-    location = ops[:location] ||= 'Durham'
+    location = ops[:location] ||= 'Anchorage'
     term = ops[:term] ||= 'food'
 
-    Yelp.client.search(location,term: term)
+    Yelp.client.search(location, item: term)
+  end
+
+  def approved_params
+    if current_user
+      params[:location] = current_user.zip_code
+    end
+    params.permit(
+     :location
+    )
+  end
+
+  def zip_code
+    27701
   end
 
 
@@ -97,6 +110,18 @@ class BusinessesController < ApplicationController
       "business_url": "www.tiy.com",
       "image_url": "https://s3-media2.flash.yelpcdn.com/bphoto/o3w3EoATG8RX4w4FHrHpiw/ms.jpg",
       "categories": ["gumbo","hats"],
+      "survey" => []
+     },
+     {
+       "name": "Grits and Grand Galleria",
+      "owner": "Marie Francis",
+      "description": "fine food",
+      "phone": "2036876162",
+      "zipcode": "27701",
+      "business_url": "www.google.com",
+      "image_url": "https://s3-media2.flash.yelpcdn.com/bphoto/o3w3EoATG8RX4w4FHrHpiw/ms.jpg",
+     "categories": ["grits","fancy pictures"],
+     "survey" => []
     }]
   end
 end
