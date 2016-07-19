@@ -1,8 +1,4 @@
 class UsersController < ApplicationController
-
-  def test
-  end
-
   def user_data
     [{
       :id => 1,
