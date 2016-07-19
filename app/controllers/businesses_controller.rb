@@ -64,17 +64,23 @@ class BusinessesController < ApplicationController
   end
 
   def yelp ops={}
-    location = ops[:location] ||= 'Durham'
+    location = ops[:location] ||= 'Anchorage'
     term = ops[:term] ||= 'food'
 
     Yelp.client.search(location, item: term)
   end
 
   def approved_params
-    params[:zip_code] ||= current_user.zip_code
+    if current_user
+      params[:location] = current_user.zip_code
+    end
     params.permit(
-     :zip_code
+     :location
     )
+  end
+
+  def zip_code
+    27701
   end
 
   def business_mockup
@@ -85,23 +91,24 @@ class BusinessesController < ApplicationController
     [{
       "name": "Billy's Gumbo and Fancy Hat Emporium",
       "owner": "Billy Joe",
-      "description": "great restaurant"
-      "phone": "2036876161"
-      "zipcode": "27701"
-      "business_url": "www.tiy.com" 
-      "image_url": "https://s3-media2.flash.yelpcdn.com/bphoto/o3w3EoATG8RX4w4FHrHpiw/ms.jpg"
-      "categories": ["gumbo","hats"]
-      # "profile" => []
-     # },
-     # {
-     # "name": "Grits and Grand Galleria",
-     #  "owner": "Marie Francis",
-     # "survey" => [],
-     # "profile" => []
+      "description": "great restaurant",
+      "phone": "2036876161",
+      "zipcode": "27701",
+      "business_url": "www.tiy.com",
+      "image_url": "https://s3-media2.flash.yelpcdn.com/bphoto/o3w3EoATG8RX4w4FHrHpiw/ms.jpg",
+      "categories": ["gumbo","hats"],
+      "survey" => []
+     },
+     {
+       "name": "Grits and Grand Galleria",
+      "owner": "Marie Francis",
+      "description": "fine food",
+      "phone": "2036876162",
+      "zipcode": "27701",
+      "business_url": "www.google.com",
+      "image_url": "https://s3-media2.flash.yelpcdn.com/bphoto/o3w3EoATG8RX4w4FHrHpiw/ms.jpg",
+     "categories": ["grits","fancy pictures"],
+     "survey" => []
     }]
-  end
-
-  def zip_code
-    27701
   end
 end
