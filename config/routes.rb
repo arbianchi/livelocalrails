@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
 
+  get '/find' => 'businesses#find_business'
+
   resources :users
 
   root 'users#test'
@@ -8,7 +10,6 @@ Rails.application.routes.draw do
   resources :questions
   resources :businesses
 
-  get 'businesses/find' => 'businesses#find_business'
 
 
 

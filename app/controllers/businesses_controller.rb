@@ -26,7 +26,9 @@ class BusinessesController < ApplicationController
   def edit
     @business = Business.find(params[:id])
     respond_to do |format|
-      format.json { render json: business_mockup }
+      format.json
+    #yelp(27701, term: 'The Pinhook')
+ 
       format.html { not_found }
     end
   end
@@ -56,28 +58,30 @@ class BusinessesController < ApplicationController
     redirect_to '/'
   end
 
+  def find_business 
+    resp = yelp({location: params[:location],term: params[:term]})
+    results = resp.businesses
+
+    respond_to do |format|
+      format.json { render json: results}
+      format.html { not_found }
+    end
+  end
+
   private
 
   def not_found
     redirect_to '/404'
   end
 
+
   def yelp ops={}
     location = ops[:location] ||= 'Durham'
     term = ops[:term] ||= 'food'
 
-    Yelp.client.search(city,term)
+    Yelp.client.search(location,term: term)
   end
 
-  def find_business zip, term
-    yelp
-    results = resp.businesses
-
-    respond_to do |format|
-      format.json { render json: top_result}
-      format.html { not_found }
-    end
-  end
 
   def business_mockup
     businesses_mockup.first
@@ -87,19 +91,12 @@ class BusinessesController < ApplicationController
     [{
       "name": "Billy's Gumbo and Fancy Hat Emporium",
       "owner": "Billy Joe",
-      "description": "great restaurant"
-      "phone": "2036876161"
-      "zipcode": "27701"
-      "business_url": "www.tiy.com" 
-      "image_url": "https://s3-media2.flash.yelpcdn.com/bphoto/o3w3EoATG8RX4w4FHrHpiw/ms.jpg"
-      "categories": ["gumbo","hats"]
-      # "profile" => []
-     # },
-     # {
-     # "name": "Grits and Grand Galleria",
-     #  "owner": "Marie Francis",
-     # "survey" => [],
-     # "profile" => []
+      "description": "great restaurant",
+      "phone": "2036876161",
+      "zipcode": "27701",
+      "business_url": "www.tiy.com",
+      "image_url": "https://s3-media2.flash.yelpcdn.com/bphoto/o3w3EoATG8RX4w4FHrHpiw/ms.jpg",
+      "categories": ["gumbo","hats"],
     }]
   end
 end
