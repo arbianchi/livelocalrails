@@ -1,4 +1,6 @@
-class UsersController < ApplicationController
+pclass UsersController < ApplicationController
+  skip_after_action :verify_authorized, only: [:sign_up, :sign_in]
+
   def user_data
     [{
       :id => 1,
