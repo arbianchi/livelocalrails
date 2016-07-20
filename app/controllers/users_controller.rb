@@ -1,16 +1,15 @@
-pclass UsersController < ApplicationController
-  skip_after_action :verify_authorized, only: [:sign_up, :sign_in]
+class UsersController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:sign_up, :sign_in ]
 
-  def user_data
-    [{
-      :id => 1,
-      :username => "username",
-      :first_name => "Joe",
-      :last_name => "Shmo",
-      :email => "email@email.com",
-      :zipcode => "27701",
-      :survey => []
-    }]
+
+  def sign_in
+    user = User.find_by(username: params[:username])
+    if user
+      auth_token = set_token(user: user)
+      render json: auth_token
+    else
+      render json: {"message":"error"}
+    end
   end
 
   def show
@@ -46,8 +45,24 @@ pclass UsersController < ApplicationController
     end
   end
 
-
   private
+
+  def set_token ops={}
+    username = User.find(ops[:user].id).username
+    return {"token": username}
+  end
+
+  def user_data
+    [{
+      :id => 1,
+      :username => "username",
+      :first_name => "Joe",
+      :last_name => "Shmo",
+      :email => "email@email.com",
+      :zipcode => "27701",
+      :survey => []
+    }]
+  end
 
   def user_params
     params.require(:user).permit(:username, :email, :password)
