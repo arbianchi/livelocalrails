@@ -22,7 +22,8 @@ end
     long = b.businesses.first.location.coordinate.longitude
     image_url = b.businesses.first.snippet_image_url
     url = b.businesses.first.url
+    categories = b.businesses.first.categories.join(" ")
 
-    Business.create!(name: business, address: address, city: city, zipcode: zipcode, phone: phone, location: "#{lat},#{long}", image_url: image_url, website_url: url) 
+    Business.create!(name: business, address: address, city: city, zipcode: zipcode, phone: phone, location: "#{lat},#{long}", image_url: image_url, website_url: url, categories: categories) 
     end
   end
