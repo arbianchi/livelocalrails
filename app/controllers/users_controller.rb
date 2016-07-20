@@ -6,10 +6,10 @@ class UsersController < ApplicationController
       user_params
     )
     if @user.save
-      auth_token = set_token(user: user)
+      auth_token = set_token(user: @user)
       render json: auth_token
     else
-      render json: {"message":"error"}
+      render status: 400, json: {"message":"error"}
     end
   end
 
@@ -19,7 +19,7 @@ class UsersController < ApplicationController
       auth_token = set_token(user: user)
       render json: auth_token
     else
-      render json: {"message":"error"}
+      render status: 400, json: {"message": "error"}
     end
   end
 
