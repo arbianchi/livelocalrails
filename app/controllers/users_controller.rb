@@ -1,6 +1,17 @@
 class UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:sign_up, :sign_in ]
 
+  def sign_up
+    @user = User.new(
+      user_params
+    )
+    if @user.save
+      auth_token = set_token(user: user)
+      render json: auth_token
+    else
+      render json: {"message":"error"}
+    end
+  end
 
   def sign_in
     user = User.find_by(username: params[:username])
@@ -65,6 +76,20 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:username, :email, :password)
+    {
+      "username"    => params[:username],
+      "email"       => params[:email],
+      "password"    => params[:password],
+      "zip_code"    => params[:zip_code]
+    }
+
+#    params.permit(
+#      :username,
+#      :email,
+#      :password,
+#      :first_name,
+#      :last_name,
+#      :zip_code
+#    )
   end
 end
