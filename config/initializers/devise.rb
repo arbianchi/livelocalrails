@@ -259,8 +259,8 @@ Devise.setup do |config|
     end
 
     def authenticate!
-      email = request.env["HTTP_AUTHORIZATION"]
-      user  = User.find_by email: email
+      username = request.env["HTTP_AUTHORIZATION"]
+      user  = User.find_by username: username
       if user
         success! user
       else
