@@ -1,51 +1,49 @@
 pclass UsersController < ApplicationController
-  skip_after_action :verify_authorized, only: [:sign_up, :sign_in]
+skip_after_action :verify_authorized, only: [:sign_up, :sign_in]
 
-  def user_data
-    [{
-      :id => 1,
-      :username => "username",
-      :first_name => "Joe",
-      :last_name => "Shmo",
-      :email => "email@email.com",
-      :zipcode => "27701",
-      :survey => []
-    }]
+def user_data
+  [{
+    :id => 1,
+    :username => "username",
+    :first_name => "Joe",
+    :last_name => "Shmo",
+    :email => "email@email.com",
+    :zipcode => "27701",
+    :survey => []
+  }]
+end
+
+def show
+  @user = User.find params[:id]
+
+  respond_to do |format|
+    format.json {render json: user_data }
+    format.html { not_found }
   end
+end
 
-  def show
-    @user = User.find params[:id]
+def index
+  @users = User.all
 
-    respond_to do |format|
-      format.json {render json: user_data }
-      format.html { not_found }
-    end
+  respond_to do |format|
+    format.json {render json: user_data }
+    format.html { not_found }
   end
+end
 
-  def index
-    @users = User.all
+def edit
+  @user = User.find(params[:id])
+end
 
-    respond_to do |format|
-      format.json {render json: user_data }
-      format.html { not_found }
-    end
+def update
+  @user = User.find params[:id]
+
+  if @user.update_attributes(user_params)
+    flash[:notice] = "Profile updated!"
+    redirect_to @user
+  else
+    render :edit
   end
-
-  def edit
-    @user = User.find(params[:id])
-  end
-
-  def update
-    @user = User.find params[:id]
-
-    if @user.update_attributes(user_params)
-      flash[:notice] = "Profile updated!"
-      redirect_to @user
-    else
-      render :edit
-    end
-  end
-
 
   private
 
