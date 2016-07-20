@@ -54,42 +54,42 @@ class UsersController < ApplicationController
     else
       render :edit
     end
+  end
 
-    private
+  private
 
-    def set_token ops={}
-      username = User.find(ops[:user].id).username
-      return {"token": username}
-    end
+  def set_token ops={}
+    username = User.find(ops[:user].id).username
+    return {"token": username}
+  end
 
-    def user_data
-      [{
-        :id => 1,
-        :username => "username",
-        :first_name => "Joe",
-        :last_name => "Shmo",
-        :email => "email@email.com",
-        :zipcode => "27701",
-        :survey => []
-      }]
-    end
+  def user_data
+    [{
+       :id => 1,
+       :username => "username",
+       :first_name => "Joe",
+       :last_name => "Shmo",
+       :email => "email@email.com",
+       :zipcode => "27701",
+       :survey => []
+     }]
+  end
 
-    def user_params
-      {
-        "username"    => params[:username],
-        "email"       => params[:email],
-        "password"    => params[:password],
-        "zip_code"    => params[:zip_code]
-      }
+  def user_params
+    {
+      "username"    => params[:username],
+      "email"       => params[:email],
+      "password"    => params[:password],
+      "zip_code"    => params[:zip_code]
+    }
 
-      #    params.permit(
-      #      :username,
-      #      :email,
-      #      :password,
-      #      :first_name,
-      #      :last_name,
-      #      :zip_code
-      #    )
-    end
+    #    params.permit(
+    #      :username,
+    #      :email,
+    #      :password,
+    #      :first_name,
+    #      :last_name,
+    #      :zip_code
+    #    )
   end
 end
