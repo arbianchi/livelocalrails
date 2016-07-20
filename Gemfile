@@ -19,6 +19,8 @@ gem 'figaro'
 gem 'yelp', require: 'yelp'
 gem 'omniauth'
 gem 'omniauth-yelp' 
+gem 'pry-rails'
+
 group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
@@ -27,7 +29,6 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'launchy'
-  gem 'pry-rails'
   gem 'rspec-rails'
 end
 
