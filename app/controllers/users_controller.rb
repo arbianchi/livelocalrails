@@ -23,37 +23,36 @@ class UsersController < ApplicationController
     end
   end
 
-  def show
-    @user = User.find params[:id]
+def show
+  @user = User.find params[:id]
 
-    respond_to do |format|
-      format.json {render json: user_data }
-      format.html { not_found }
-    end
+  respond_to do |format|
+    format.json {render json: user_data }
+    format.html { not_found }
   end
+end
 
-  def index
-    @users = User.all
+def index
+  @users = User.all
 
-    respond_to do |format|
-      format.json {render json: user_data }
-      format.html { not_found }
-    end
+  respond_to do |format|
+    format.json {render json: user_data }
+    format.html { not_found }
   end
+end
 
-  def edit
-    @user = User.find(params[:id])
-  end
+def edit
+  @user = User.find(params[:id])
+end
 
-  def update
-    @user = User.find params[:id]
+def update
+  @user = User.find params[:id]
 
-    if @user.update_attributes(user_params)
-      flash[:notice] = "Profile updated!"
-      redirect_to @user
-    else
-      render :edit
-    end
+  if @user.update_attributes(user_params)
+    flash[:notice] = "Profile updated!"
+    redirect_to @user
+  else
+    render :edit
   end
 
   private

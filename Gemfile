@@ -17,7 +17,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'uglifier', '>= 1.3.0'
 gem 'figaro'
 gem 'yelp', require: 'yelp'
-gem 'omniauth-yelp'
+gem 'omniauth'
+gem 'omniauth-yelp' 
 group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
