@@ -9,7 +9,8 @@ class UsersController < ApplicationController
       auth_token = set_token(user: @user)
       render json: auth_token
     else
-      render status: 400, json: {"message":"error"}
+      errors = @user.errors.messages
+      render status: 400, json: {"message": errors }
     end
   end
 
@@ -80,16 +81,9 @@ class UsersController < ApplicationController
       "username"    => params[:username],
       "email"       => params[:email],
       "password"    => params[:password],
-      "zip_code"    => params[:zip_code]
+      "zip_code"    => params[:zip_code],
+      "first_name"  => params[:first_name],
+      "last_name"   => params[:last_name]
     }
-
-    #    params.permit(
-    #      :username,
-    #      :email,
-    #      :password,
-    #      :first_name,
-    #      :last_name,
-    #      :zip_code
-    #    )
   end
 end

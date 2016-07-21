@@ -2,27 +2,47 @@ require 'rails_helper'
 
 RSpec.describe BusinessesController, type: :controller do
 
+  let(:user) { create :user }
+
   def response_as_expected? response
-    (response.is_a? Hash) &&
-      (response["businesses"].count == 20)
+    r = JSON.parse response.body
+    (r.is_a? Hash) &&
+      (r["businesses"].count == 20)
+  end
+
+  def set_auth_header user
+        request.headers['HTTP_AUTHORIZATION'] = user.username
   end
 
   it "allows users to search near their zip code" do
 
-    u = FactoryGirl.create :user, zip_code: "27701"
-    sign_in u
+    u = create :user, zip_code: "27701"
+    set_auth_header u
 
     get :index, :format => :json
     expect(response).to have_http_status(:ok)
 
-    r = JSON.parse response.body
-
-    expect(response_as_expected? r).
+    expect(response_as_expected? response).
       to be_truthy
   end
 
-  it "makes show.json available" do
+  it "allows businesses to search using location and a term" do
+    u = user
+    set_auth_header u
+
+    get :find_business, { :location => "27701", :term => "food", format: :json }
+    expect(response).to have_http_status(:ok)
+
+    expect(respons_as_expected? response).
+      to be_truthy
+  end
+
+  it "makes show available" do
+    u = user
+
+    set_auth_header u
     get :show, :format => :json, :id => 1
+
     expect(response).to have_http_status(:ok)
   end
 end

@@ -22,3 +22,13 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+## Routes
+
+`businesses#index`
+
+- A user's page is populated with local businesses — searches the db
+
+`businesses#find_business`
+
+- A businesses searches for itself to claim itself — hits the yelp api

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Business, type: :model do
 
-  it "creates a new business" do
+  xit "creates a new business" do
     visit '/businesses/new'
     within("#session") do
       fill_in 'Business Name', :with => 'The Iron Yard'
