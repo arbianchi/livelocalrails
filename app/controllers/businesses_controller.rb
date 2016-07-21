@@ -28,7 +28,7 @@ class BusinessesController < ApplicationController
     @business = Business.find(params[:id])
     respond_to do |format|
       format.json
- 
+
       format.html { not_found }
     end
   end
@@ -58,10 +58,8 @@ class BusinessesController < ApplicationController
     redirect_to '/'
   end
 
-  def find_business 
-    resp = yelp({location: params[:location],term: params[:term]})
-    results = resp.businesses
-
+  def find_business
+    results = yelp({location: params[:location],term: params[:term]})
     respond_to do |format|
       format.json { render json: results}
       format.html { not_found }
@@ -79,7 +77,7 @@ class BusinessesController < ApplicationController
     location = ops[:location] ||= 'Anchorage'
     term = ops[:term] ||= 'food'
 
-    Yelp.client.search(location, item: term)
+    Yelp.client.search(location, item: term).businesses
   end
 
   def approved_params
