@@ -22,7 +22,8 @@ end
     image_url = b.businesses.first.snippet_image_url
     url = b.businesses.first.url
     categories = b.businesses.first.categories.join(" ")
+    yelp_id = b.businesses.first.id
 
-    Business.create!(name: business, address: address, city: city, zipcode: zipcode, phone: phone, location: "#{lat},#{long}", image_url: image_url, website_url: url, categories: categories) 
+    Business.create!(name: business, address: address, city: city, zipcode: zipcode, phone: phone, location: "#{lat},#{long}", image_url: image_url, website_url: url, categories: categories, yelp_id: yelp_id) 
     end
   end
