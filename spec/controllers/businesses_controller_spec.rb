@@ -26,7 +26,7 @@ RSpec.describe BusinessesController, type: :controller do
       to be_truthy
   end
 
-  xit "allows businesses to search using location and a term" do
+  it "allows businesses to search using location and a term" do
     u = user
     set_auth_header u
 
