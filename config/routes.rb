@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  get '/find' => 'businesses#find_business'
+  get '/find_business' => 'businesses#find_business'
   post '/sign_up' => 'users#sign_up'
   post '/sign_in' => 'users#sign_in'
 

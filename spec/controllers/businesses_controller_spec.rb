@@ -6,8 +6,8 @@ RSpec.describe BusinessesController, type: :controller do
 
   def response_as_expected? response
     r = JSON.parse response.body
-    (r.is_a? Hash) &&
-      (r["businesses"].count == 20)
+    (r.is_a? Array) &&
+      (r.count == 20)
   end
 
   def set_auth_header user
@@ -26,14 +26,14 @@ RSpec.describe BusinessesController, type: :controller do
       to be_truthy
   end
 
-  xit "allows businesses to search using location and a term" do
+  it "allows businesses to search using location and a term" do
     u = user
     set_auth_header u
 
     get :find_business, { :location => "27701", :term => "food", format: :json }
     expect(response).to have_http_status(:ok)
 
-    expect(respons_as_expected? response).
+    expect(response_as_expected? response).
       to be_truthy
   end
 
