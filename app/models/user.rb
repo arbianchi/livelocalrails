@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_one :business, class_name: "Business", foreign_key: "owner_id"
   has_many :questions
+  has_many :surveys, as: :responder
 
   validates_presence_of :username, :zip_code, :last_name, :first_name
 end
