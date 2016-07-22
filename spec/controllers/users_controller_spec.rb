@@ -21,4 +21,13 @@ RSpec.describe UsersController, type: :controller do
     post :sign_in, {username: u.username, password: "password"}
     expect(response.code).to eq("200")
   end
+
+  it "renders show view" do
+    u = user
+    sign_in u
+
+    get :show, id: u.id
+    expect(response.code).to eq("200")
+  end
+
 end
