@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     )
     if @user.save
       auth_token = set_token(user: @user)
-      render json: auth_token
+      render json: auth_token.merge({"message": "Account successfully created."})
     else
       errors = @user.errors.messages
       render status: 400, json: {"message": errors }
@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     user = User.find_by(username: params[:username])
     if user
       auth_token = set_token(user: user)
-      render json: auth_token
+      render json: auth_token.merge({"message": "Sign in successful."})
     else
       render status: 400, json: {"message": "error"}
     end
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
     @user = User.find params[:id]
 
     respond_to do |format|
-      format.json {render json: user_data }
+      format.json {render json: @user }
       format.html { not_found }
     end
   end
@@ -62,18 +62,6 @@ class UsersController < ApplicationController
   def set_token ops={}
     username = User.find(ops[:user].id).username
     return {"token": username}
-  end
-
-  def user_data
-    [{
-       :id => 1,
-       :username => "username",
-       :first_name => "Joe",
-       :last_name => "Shmo",
-       :email => "email@email.com",
-       :zipcode => "27701",
-       :survey => []
-     }]
   end
 
   def user_params
