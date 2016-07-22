@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :questions
   resources :businesses
+  resources :surveys
 
 
 
