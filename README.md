@@ -33,6 +33,11 @@ Things you may want to cover:
 
 - A businesses searches for itself to claim itself — hits the yelp ap
 
+`businesses#yelp`
+
+- Make a request for a businesses' yelp info; pass the business id (id from our db), and we'll pass back the yelp listing.
+
+
 ## User View - Dashbaord
 
 ### Featured?

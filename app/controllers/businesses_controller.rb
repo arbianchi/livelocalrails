@@ -1,19 +1,20 @@
 class BusinessesController < ApplicationController
-  def index
-    @businesses = yelp(approved_params)
 
-    respond_to do |format|
-      format.json { render json: @businesses.to_json }
-      format.html { redirect_to '/404' }
+  def yelp
+    if @business = Business.find_by(id: params[:id])
+      YelpGemWrapper.
+      find_business({  location: @business.address,
+                       term: @business.name})
     end
+    @business.to_json
   end
 
- def show
-   #@business = Business.find(params[:id])
-   respond_to do |format|
-     format.json { render json: business_mockup }
-     format.html { not_found }
-   end
+  def index
+    @businesses = NearbyBusinesses.for({zip_code: current_user.zip_code})
+    render json: @businesses.to_json
+  end
+
+  def show
   end
 
   def new
@@ -59,25 +60,14 @@ class BusinessesController < ApplicationController
   end
 
   def find_business
-    results = yelp({location: params[:location],term: params[:term]})
-    respond_to do |format|
-      format.json { render json: results}
-      format.html { not_found }
-    end
+    @businesses = NearbyBusinesses.for({zip_code: params[:location],term: params[:term]})
+    render json: @businesses.to_json
   end
 
   private
 
   def not_found
     redirect_to '/404'
-  end
-
-
-  def yelp ops={}
-    location = ops[:location] ||= 'Anchorage'
-    term = ops[:term] ||= 'food'
-
-    Yelp.client.search(location, item: term).businesses
   end
 
   def approved_params
