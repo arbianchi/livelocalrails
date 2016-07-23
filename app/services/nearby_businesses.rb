@@ -6,7 +6,8 @@ class NearbyBusinesses
     @results = Business.where(zip_code: zip_code)
 
     unless @results.present?
-      @results = YelpGemWrapper.FindBusinesses(location: zip_code, term: term)
+      @results = BusinessFinder.new.run(location: zip_code, term: term)
     end
+    return @results
   end
 end

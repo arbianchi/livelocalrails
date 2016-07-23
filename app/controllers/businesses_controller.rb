@@ -1,4 +1,14 @@
 class BusinessesController < ApplicationController
+
+  def yelp
+    if @business = Business.find_by(id: params[:id])
+      YelpGemWrapper.
+      find_business({  location: @business.address,
+                       term: @business.name})
+    end
+    @business.to_json
+  end
+
   def index
     @businesses = NearbyBusinesses.for({zip_code: current_user.zip_code})
     render json: @businesses.to_json

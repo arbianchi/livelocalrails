@@ -37,6 +37,8 @@ RSpec.describe BusinessesController, type: :controller do
       to be_truthy
   end
 
+  it "can provide a yelp listing directly"
+
   xit "makes show available" do
     u = user
 
