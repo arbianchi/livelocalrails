@@ -18,7 +18,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'figaro'
 gem 'yelp', require: 'yelp'
 gem 'omniauth'
-gem 'omniauth-yelp' 
+gem 'omniauth-yelp'
 gem 'pry-rails'
 
 group :development, :test do
@@ -39,6 +39,7 @@ end
 group :development do
   gem 'listen', '~> 3.0.5'
   gem 'spring'
+  gem 'spring-commands-rspec'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console'
 end
