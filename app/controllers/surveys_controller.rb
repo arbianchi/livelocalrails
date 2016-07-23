@@ -3,7 +3,7 @@ class SurveysController < ApplicationController
   def create
     @survey = Survey.new( approved_params )
     if @survey.save
-      status :ok
+      render json: {"message": "Survey submitted."}
     else
       redirect_back fallback_location: '/'
     end
