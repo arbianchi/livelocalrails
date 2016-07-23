@@ -19,13 +19,13 @@ class SurveysController < ApplicationController
   #   end
   # end
 
-  # def show
-  #   @survey = survey.find(params[:id])
-  #   respond_to do |format|
-  #     format.json { render json: survey_mockup }
-  #     format.html { not_found }
-  #   end
-  # end
+  def show
+    @survey = Survey.find_by(responder: current_user)
+    respond_to do |format|
+      format.json { render json: @survey.to_json}
+      format.html { not_found }
+    end
+  end
 
   # def destroy
   #   @survey = survey.find(params[:id])
