@@ -20,6 +20,7 @@ gem 'yelp', require: 'yelp'
 gem 'omniauth'
 gem 'omniauth-yelp'
 gem 'pry-rails'
+gem 'travis'
 
 group :development, :test do
   gem 'better_errors'
