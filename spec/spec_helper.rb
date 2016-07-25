@@ -21,6 +21,10 @@ module Helpers
   def set_auth_header user
     request.headers['HTTP_AUTHORIZATION'] = user.username
   end
+
+  def parsed_response
+    JSON.parse response.body
+  end
 end
 
 RSpec.configure do |config|
