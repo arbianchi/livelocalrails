@@ -2,34 +2,25 @@ require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
 
+  include Helpers
+
   let(:user) { create :user }
 
-  let(:valid_params) {
-    { user_id: user.id,
-      business_id: 2,
-      question_text: "Will this feature work correctly?" 
-  }
-  }
-
-  def set_auth_header user
-    request.headers['HTTP_AUTHORIZATION'] = user.username
-  end
-
-  def parsed_response
-    JSON.parse response.body
-  end
 
   describe "GET #index" do
     it "returns list of posted questions for a business" do
 
       set_auth_header user
 
-      question = Question.create! valid_params
-      business = FactoryGirl.build(:business)
+      business = FactoryGirl.create(:business)
+      binding.pry
+      question = Question.create user_id: user.id, business_id: business.id, question_text: "Will this feature work correctly?" 
 
-      get :index
+      binding.pry
+      get :index, params:{ business_id: business.id }
 
       expect(response).to have_http_status(:ok)
+      binding.pry
       expect( parsed_response["user_id"] ).to eq(user.id)
       expect(parsed_response.class).to eq(Array)
 
