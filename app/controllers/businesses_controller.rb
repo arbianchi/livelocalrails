@@ -11,6 +11,7 @@ class BusinessesController < ApplicationController
 
   def index
     @businesses = NearbyBusinesses.for({zip_code: current_user.zip_code})
+    @businesses = LocalScore.prepare(@businesses)
     render json: @businesses.to_json
   end
 

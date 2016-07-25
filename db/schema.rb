@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 20160725132452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "businesses", force: :cascade do |t|
     t.datetime "created_at",  null: false
@@ -29,6 +30,7 @@ ActiveRecord::Schema.define(version: 20160725132452) do
     t.point    "location"
     t.string   "categories"
     t.string   "yelp_id"
+    t.boolean  "is_local"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -37,6 +39,16 @@ ActiveRecord::Schema.define(version: 20160725132452) do
     t.integer  "user_id"
     t.integer  "business_id"
     t.string   "question_text"
+  end
+
+  create_table "recommendations", force: :cascade do |t|
+    t.integer  "business_id"
+    t.integer  "user_id"
+    t.boolean  "value"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["business_id"], name: "index_recommendations_on_business_id", using: :btree
+    t.index ["user_id"], name: "index_recommendations_on_user_id", using: :btree
   end
 
   create_table "surveys", force: :cascade do |t|
@@ -80,4 +92,5 @@ ActiveRecord::Schema.define(version: 20160725132452) do
     t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
 
+  add_foreign_key "recommendations", "users"
 end
