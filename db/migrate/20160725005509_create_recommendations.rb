@@ -3,7 +3,7 @@ class CreateRecommendations < ActiveRecord::Migration[5.0]
     create_table :recommendations do |t|
       t.references :business
       t.references :user, foreign_key: true
-      t.string      :value
+      t.boolean      :value
 
       t.timestamps
     end
