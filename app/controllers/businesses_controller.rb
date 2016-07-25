@@ -61,7 +61,7 @@ class BusinessesController < ApplicationController
   end
 
   def find_business
-    @businesses = NearbyBusinesses.for({zip_code: params[:location],term: params[:term]})
+    @businesses = UnclaimedBusinesses.for({location: params[:location],term: params[:term]})
     render json: @businesses.to_json
   end
 
