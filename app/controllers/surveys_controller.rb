@@ -5,7 +5,7 @@ class SurveysController < ApplicationController
     matches = []
 
     business_surveys.each do |biz_survey|
-      user_survey.questions.each do |question|
+      Survey.column_names.each do |question|
         if (biz_survey.send(question) == true) && (user_survey.send(question) == true)
           matches.push(biz_survey.responder_id)
         end
