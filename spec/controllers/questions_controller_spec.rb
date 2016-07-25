@@ -5,23 +5,21 @@ RSpec.describe QuestionsController, type: :controller do
   include Helpers
 
   let(:user) { create :user }
-
+  let(:business) { FactoryGirl.create(:business) }
+  let(:question) { Question.create user_id: user.id, business_id: business.id, question_text: "Will this feature work correctly?" }
 
   describe "GET #index" do
     it "returns list of posted questions for a business" do
 
       set_auth_header user
 
-      business = FactoryGirl.create(:business)
-      binding.pry
-      question = Question.create user_id: user.id, business_id: business.id, question_text: "Will this feature work correctly?" 
+      business.save!
+      question.save!
 
-      binding.pry
       get :index, params:{ business_id: business.id }
 
       expect(response).to have_http_status(:ok)
-      binding.pry
-      expect( parsed_response["user_id"] ).to eq(user.id)
+      expect( parsed_response.first["user_id"] ).to eq(user.id)
       expect(parsed_response.class).to eq(Array)
 
     end
@@ -32,7 +30,7 @@ RSpec.describe QuestionsController, type: :controller do
 
       set_auth_header user
 
-      expect { Question.create! valid_params }.to change(Question, :count).by(1)
+      expect { Question.create( user_id: user.id, business_id: business.id, question_text: "working?" ) }.to change(Question, :count).by(1)
       expect(response).to have_http_status(:ok)
     end
   end
