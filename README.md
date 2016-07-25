@@ -29,9 +29,9 @@ Things you may want to cover:
 
 - A user's page is populated with local businesses — searches the db
 
-`businesses#find_business`
+`businesses#find_business` path is `/find_business`
 
-- A businesses searches for itself to claim itself — hits the yelp ap
+- A businesses searches for itself to claim itself — this endpoint expects a `location` parameter and a `term` parameter; a productive search might be `22 Friendly Ave` for the location and `Moe's Diner`. Notice the use of street name and restaurant name.
 
 `businesses#yelp`
 
