@@ -6,20 +6,20 @@ RSpec.describe SurveysController, type: :controller do
 
   let(:valid_params) { 
     {
-        responder: user,
-        hiring: false,
-        glutFree: true,
-        musicians: true,
-        lgbt: true,
-        localFood: false,
-        minorityOwned: true,
-        livWage: false,
-        petFriend: true,
-        artsCrafts: false,
-        charNonprof: true,
-        sustain: true,
-        veganPeta: false,
-      }
+    responder: user,
+    hiring: false,
+    glutFree: true,
+    musicians: true,
+    lgbt: true,
+    localFood: false,
+    minorityOwned: true,
+    livWage: false,
+    petFriend: true,
+    artsCrafts: false,
+    charNonprof: true,
+    sustain: true,
+    veganPeta: false,
+  }
   }
 
   def set_auth_header user
@@ -48,11 +48,29 @@ RSpec.describe SurveysController, type: :controller do
       survey = Survey.create! valid_params
 
       get :show 
-      # binding.pry
-      
+
       expect(response).to have_http_status(:ok)
       expect( parsed_response["responder_id"] ).to eq(user.id)
 
     end
   end
+
+  describe "get #matches" do
+    it "returns an array of businesses that match the user survey on at least one attribute" do
+
+      set_auth_header user
+
+      user_survey = Survey.create! valid_params
+
+      10.times do
+        FactoryGirl.create(:survey)
+      end
+
+      get :matches
+
+      expect(response).to have_http_status(:ok)
+      expect(parsed_response.class).to eq(Array)
+    end
+  end
+
 end
