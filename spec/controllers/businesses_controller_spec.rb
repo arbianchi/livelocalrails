@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe BusinessesController, type: :controller do
 
   let(:user) { create :user }
+  let(:business) { create :business }
 
   def response_as_expected? response
     r = JSON.parse response.body
@@ -45,6 +46,33 @@ RSpec.describe BusinessesController, type: :controller do
       to be_truthy
 
   end
+
+  it "can claim businesses i.e. become owner" do
+    u = user
+    b = business
+    set_auth_header u
+
+    expect {
+      post :claim, id: b.id
+    }.to change { b.reload.owner_id }.to eq(u.id)
+  end
+
+  it "cannot claim businesses that are claimed" do
+    u1 = user
+    b = create :business, owner_id: u1.id
+    u2 = user
+
+    set_auth_header u2
+
+    post :claim, id: b.id
+
+    expect(b.reload.owner_id).to eq u1.id
+    expect(response).to have_http_status("400")
+
+  end
+
+
+
 
   it "can provide a yelp listing directly"
 
