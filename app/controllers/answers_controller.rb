@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
 
   def index 
-
+binding.pry
     @answers = Answer.where(question_id: params["question_id"])
 
     respond_to do |format|
@@ -23,6 +23,8 @@ class AnswersController < ApplicationController
   private
 
   def approved_params
+    params.permit!
+
     { answerer: current_user,
       question_id: params["question_id"],
       answer_text: params["answer_text"]

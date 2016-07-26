@@ -20,14 +20,14 @@ RSpec.describe AnswersController, type: :controller do
       b.save!
       q = create :question, user_id: user.id, business_id: business.id
       q.save!
-      answer = create :answer, answerer: user, question_id: question.id
+      answer = create :answer, answerer: user, question_id: q.id
       answer.save!
 
-      get :index, params:{ question_id: question.id }
+      get :index, params:{ question_id: q.id }
 
       expect(response).to have_http_status(:ok)
       expect( parsed_response.first["answerer_id"] ).to eq(user.id)
-      expect( parsed_response.first["question_id"] ).to eq(question.id)
+      expect( parsed_response.first["question_id"] ).to eq(q.id)
       expect(parsed_response.class).to eq(Array)
 
     end
