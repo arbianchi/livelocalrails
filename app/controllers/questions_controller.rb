@@ -11,6 +11,7 @@ class QuestionsController < ApplicationController
   end
 
   def create
+    binding.pry
     @question = Question.new( approved_params )
 
     if @question.save
@@ -24,7 +25,7 @@ class QuestionsController < ApplicationController
 
   def approved_params
     { user_id: current_user.id,
-      business_id: params[:business_id],
+      business_id: Business.where(owner_id: current_user.id).first.id, 
       question_text: params[:question_text]
     }
   end
