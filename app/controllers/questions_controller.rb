@@ -11,12 +11,17 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    binding.pry
     @question = Question.new( approved_params )
 
     if @question.save
-      render json: {"message": "Question submitted."}
+      respond_to do |format|
+        format.json { render json: {"message": "Question submitted."}
+        }
+        format.html { not_found }
+      end
     else
+      render json: {"message": "Failure."}
+
       redirect_back fallback_location: '/'
     end
   end
@@ -24,8 +29,9 @@ class QuestionsController < ApplicationController
   private
 
   def approved_params
+    params.permit!
     { user_id: current_user.id,
-      business_id: Business.where(owner_id: current_user.id).first.id, 
+      business_id: params[:business_id],
       question_text: params[:question_text]
     }
   end
