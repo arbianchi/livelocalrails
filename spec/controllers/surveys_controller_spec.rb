@@ -6,7 +6,6 @@ RSpec.describe SurveysController, type: :controller do
 
   let(:user) { create :user }
   let(:business) { create :business}
-
   let(:survey) { create :survey }  
 
   describe "POST #create" do
@@ -14,8 +13,10 @@ RSpec.describe SurveysController, type: :controller do
 
       set_auth_header user
 
+      s = attributes_for(:survey)
+
       expect {
-      post :create, params:{ responder: user }
+        post :create, { **(s), responder: user }
       }.to change(Survey, :count).by(1)
 
       expect(response).to have_http_status(:ok)
