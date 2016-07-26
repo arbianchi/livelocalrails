@@ -1,6 +1,7 @@
 class Business < ApplicationRecord
   belongs_to :owner, class_name: "User", foreign_key: "owner_id", optional: true
   has_many :surveys, as: :responder
+  has_many :answers, as: :answerer
   has_many :recommendations,     dependent: :destroy
 
   validate :phone_number_validation
