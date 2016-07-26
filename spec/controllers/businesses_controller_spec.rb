@@ -1,4 +1,5 @@
 require 'rails_helper'
+include Helpers
 
 RSpec.describe BusinessesController, type: :controller do
 
@@ -9,10 +10,6 @@ RSpec.describe BusinessesController, type: :controller do
     r = JSON.parse response.body
     (r.is_a? Array) &&
       (r.count == 20)
-  end
-
-  def set_auth_header user
-        request.headers['HTTP_AUTHORIZATION'] = user.username
   end
 
   it "allows users to search near their zip code" do
@@ -69,6 +66,20 @@ RSpec.describe BusinessesController, type: :controller do
     expect(b.reload.owner_id).to eq u1.id
     expect(response).to have_http_status("400")
 
+  end
+
+  it "can create a unique business" do
+    u = user
+    b = attributes_for(:business)
+
+    set_auth_header u
+
+    expect {
+      post :create, {**(b)}
+    }.
+      to change { Business.count }.by 1
+
+    expect(response.code).to eq("200")
   end
 
 

@@ -36,11 +36,18 @@ class BusinessesController < ApplicationController
   end
 
   def create
-    @business = Business.new
+    @business = Business.new(
+      address:  params[:address],
+      city:     params[:city],
+      name:     params[:name],
+      phone:    params[:phone],
+      zip_code: params[:zip_code]
+    )
+
     if @business.save
-      redirect_back fallback_location: '/'
+      render json: {"message":"Business successfully added."}
     else
-      redirect_back fallback_location: '/'
+      render json: {"message":"error"}
     end
   end
 
