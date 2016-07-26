@@ -21,6 +21,7 @@ gem 'omniauth'
 gem 'omniauth-yelp'
 gem 'pry-rails'
 gem 'travis'
+gem 'pundit'
 
 group :development, :test do
   gem 'better_errors'
