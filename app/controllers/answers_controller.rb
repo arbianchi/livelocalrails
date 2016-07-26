@@ -1,7 +1,6 @@
 class AnswersController < ApplicationController
 
   def index 
-binding.pry
     @answers = Answer.where(question_id: params["question_id"])
 
     respond_to do |format|
