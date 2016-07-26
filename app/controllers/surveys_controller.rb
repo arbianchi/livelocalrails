@@ -53,6 +53,7 @@ class SurveysController < ApplicationController
   end
 
   def approved_params
+    params.permit!
     { responder: current_user,
       hiring: params[:hiring],
       glutFree: params[:glutFree],
