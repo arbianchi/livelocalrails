@@ -4,7 +4,9 @@ FactoryGirl.define do
     address {   Faker::Address.street_address }
     city {      Faker::Address.city }
     zip_code {  Faker::Address.zip_code }
-    phone {     Faker::PhoneNumber.phone_number }
+    phone {     Faker::PhoneNumber.area_code +
+                Faker::PhoneNumber.exchange_code +
+                Faker::PhoneNumber.subscriber_number}
     location {  [Faker::Address.latitude,
                  Faker::Address.longitude] }
     yelp_id {   Faker::Code.asin }
