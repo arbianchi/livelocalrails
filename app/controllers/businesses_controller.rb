@@ -18,23 +18,6 @@ class BusinessesController < ApplicationController
   def show
   end
 
-  def new
-    @business = Business.new
-    respond_to do |format|
-      format.json { render json: :ok }
-      format.html { not_found }
-    end
-  end
-
-  def edit
-    @business = Business.find(params[:id])
-    respond_to do |format|
-      format.json
-
-      format.html { not_found }
-    end
-  end
-
   def create
     @business = Business.new(
       address:  params[:address],
