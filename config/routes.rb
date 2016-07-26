@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :questions
   resources :businesses
   resource :surveys
+  resource :answers
   get '/surveys/matches' => 'surveys#matches'
 
 
