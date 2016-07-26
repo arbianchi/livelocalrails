@@ -2,32 +2,22 @@ require 'rails_helper'
 
 RSpec.describe SurveysController, type: :controller do
 
-  let(:user) { create :user }
+  include Helpers
 
-  let(:valid_params) { 
-    {
-    responder: user,
-    hiring: false,
-    glutFree: true,
-    musicians: true,
-    lgbt: true,
-    localFood: false,
-    minorityOwned: true,
-    livWage: false,
-    petFriend: true,
-    artsCrafts: false,
-    charNonprof: true,
-    sustain: true,
-    veganPeta: false,
-  }
-  }
+  let(:user) { create :user }
+  let(:business) { create :business}
+
+  let(:survey) { create :survey }  
 
   describe "POST #create" do
     it "creates a new survey" do
 
       set_auth_header user
 
-      expect { Survey.create! valid_params }.to change(Survey, :count).by(1)
+      expect {
+      post :create, params:{ responder: user }
+      }.to change(Survey, :count).by(1)
+
       expect(response).to have_http_status(:ok)
     end
   end
@@ -37,7 +27,7 @@ RSpec.describe SurveysController, type: :controller do
 
       set_auth_header user
 
-      survey = Survey.create! valid_params
+      survey = create :survey, responder: user
 
       get :show 
 
@@ -52,10 +42,14 @@ RSpec.describe SurveysController, type: :controller do
 
       set_auth_header user
 
-      user_survey = Survey.create! valid_params
+      user_survey = create :survey, responder: user
+      user_survey.save!
+
+      b = create :business
+      b.save!
 
       10.times do
-        FactoryGirl.create(:survey)
+        FactoryGirl.create(:survey, responder: b)
       end
 
       get :matches
