@@ -11,7 +11,7 @@ class AnswersController < ApplicationController
   end
 
   def create
-    @answer = answer.new( approved_params )
+    @answer = Answer.new( approved_params )
 
     if @answer.save
       render json: {"message": "Answer submitted."}
@@ -24,7 +24,8 @@ class AnswersController < ApplicationController
 
   def approved_params
     { answerer: current_user,
-      answer_text: params[:answer_text]
+      question_id: params["question_id"],
+      answer_text: params["answer_text"]
     }
   end
 end

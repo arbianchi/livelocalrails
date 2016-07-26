@@ -10,14 +10,15 @@ RSpec.describe AnswersController, type: :controller do
   let(:answer) { Answer.create answerer: user, question_id: question.id, answer_text: "yes it will!" }
 
   describe "GET #index" do
-    xit "returns list of answers for a given question" do
+    it "returns list of answers for a given question" do
 
       set_auth_header user
 
+      business.save!
       question.save!
       answer.save!
 
-      get :index, params:{ business_id: question.id }
+      get :index, params:{ question_id: question.id }
 
       expect(response).to have_http_status(:ok)
       expect( parsed_response.first["user_id"] ).to eq(user.id)
@@ -33,10 +34,12 @@ RSpec.describe AnswersController, type: :controller do
 
       business.save!
       question.save!
+
       
-      expect { answer.save! }.to change(Answer , :count).by(1)
+      expect {
+      post :create, params:{ answerer: user, question_id: question.id, answer_text: "test" }
+      }.to change(Answer , :count).by(1)
       expect(response).to have_http_status(:ok)
- binding.pry
     end
   end
 
