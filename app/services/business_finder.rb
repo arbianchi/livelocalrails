@@ -1,4 +1,4 @@
-STRATEGIES = [YelpStrategy]
+STRATEGIES = [GoogleStrategy] #,YelpStrategy]
 
 class BusinessFinder
 
