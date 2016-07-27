@@ -16,8 +16,12 @@ ActiveRecord::Schema.define(version: 20160726175708) do
   enable_extension "plpgsql"
 
   create_table "answers", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "question_id"
+    t.integer  "answerer_id"
+    t.integer  "answerer_type"
+    t.string   "answer_text"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "auth_tokens", force: :cascade do |t|
@@ -60,7 +64,7 @@ ActiveRecord::Schema.define(version: 20160726175708) do
   create_table "recommendations", force: :cascade do |t|
     t.integer  "business_id"
     t.integer  "user_id"
-    t.string   "value"
+    t.boolean  "value"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["business_id"], name: "index_recommendations_on_business_id", using: :btree

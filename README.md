@@ -25,15 +25,15 @@ Things you may want to cover:
 
 ## Routes
 
-`businesses#index`
+GET `/businesses`
 
 - A user's page is populated with local businesses — searches the db
 
-`businesses#find_business` path is `/find_business`
+GET `/find_business`
 
-- A businesses searches for itself to claim itself — this endpoint expects a `location` parameter and a `term` parameter; a productive search might be `22 Friendly Ave` for the location and `Moe's Diner`. Notice the use of street name and restaurant name.
+- A businesses searches for itself to claim itself — this endpoint expects a `location` parameter and a `term` parameter; a productive search might be `22 Friendly Ave` for the location and `Moe's Diner` for the term. Notice the use of street name and restaurant name.
 
-`businesses#yelp`
+GET `/yelp`
 
 - Make a request for a businesses' yelp info; pass the business id (id from our db), and we'll pass back the yelp listing.
 

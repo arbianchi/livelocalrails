@@ -27,7 +27,7 @@ class ApiController < ApplicationController
       @token = @user.generate_token_for "Angular Frontend"
 
       render json: {
-               "token": @token,
+               "token": @token.nonce,
                     "message": "Account successfully created.",
                     "sign_in_count": @user.sign_in_count
              }
