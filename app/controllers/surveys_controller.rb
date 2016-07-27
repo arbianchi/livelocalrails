@@ -2,7 +2,7 @@ class SurveysController < ApplicationController
 
   def matches
 
-    matches = []
+    matches = {}
 
     business_surveys.each do |biz_survey|
       Survey.column_names.each do |question|

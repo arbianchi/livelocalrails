@@ -1,5 +1,23 @@
 class QuestionsController < ApplicationController
 
+  def all 
+
+    questions = Question.where(business_id: params["business_id"])
+
+    @all = {}
+
+    questions.each do |q|
+      if q.answers
+        @all[q] = q.answers
+      end
+    end
+
+    respond_to do |format|
+      format.json { render json: @all.to_json}
+      format.html { not_found }
+    end
+  end
+
   def index 
 
     @questions = Question.where(business_id: params["business_id"])
