@@ -14,16 +14,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def sign_in
-    user = User.find_by(username: params[:username])
-    if user
-      auth_token = set_token(user: user)
-      render json: auth_token.merge({"message": "Sign in successful.", "sign_in_count": user.sign_in_count})
-    else
-      render status: 400, json: {"message": "error"}
-    end
-  end
-
   def show
     @user = User.find params[:id]
 
