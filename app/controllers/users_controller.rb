@@ -1,19 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:sign_up, :sign_in ]
 
-  def sign_up
-    @user = User.new(
-      user_params
-    )
-    if @user.save
-      auth_token = set_token(user: @user)
-      render json: auth_token.merge({"message": "Account successfully created."})
-    else
-      errors = @user.errors.messages
-      render status: 400, json: {"message": errors }
-    end
-  end
-
   def show
     @user = User.find params[:id]
 
@@ -44,11 +31,6 @@ class UsersController < ApplicationController
   end
 
   private
-
-  def set_token ops={}
-    username = User.find(ops[:user].id).username
-    return {"token": username}
-  end
 
   def user_params
     {

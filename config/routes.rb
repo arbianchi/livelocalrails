@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/find_business' => 'businesses#find_business'
   post '/claim' => 'businesses#claim'
   post '/sign_in' => 'api#sign_in'
+  post '/sign_up' => 'api#sign_up'
 
   resources :users
 
