@@ -11,7 +11,7 @@ RSpec.describe SurveysController, type: :controller do
   describe "POST #create" do
     it "creates a new survey" do
 
-      set_auth_header user
+      sign_in user
 
       s = attributes_for(:survey)
 
@@ -26,7 +26,7 @@ RSpec.describe SurveysController, type: :controller do
   describe "get #show" do
     it "returns an individual user or business survey" do
 
-      set_auth_header user
+      sign_in user
 
       survey = create :survey, responder: user
 
@@ -41,7 +41,7 @@ RSpec.describe SurveysController, type: :controller do
   describe "get #matches" do
     it "returns an array of businesses that match the user survey on at least one attribute" do
 
-      set_auth_header user
+      sign_in user
 
       user_survey = create :survey, responder: user
       user_survey.save!

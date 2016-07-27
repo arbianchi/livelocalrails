@@ -9,7 +9,7 @@ RSpec.describe RecommendationsController, type: :controller do
         u = user
         b = business
 
-        set_auth_header u
+        sign_in u
 
         post :create, {business_id: b.id, value: "true"}
 

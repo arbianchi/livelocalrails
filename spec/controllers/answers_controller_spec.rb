@@ -12,7 +12,7 @@ RSpec.describe AnswersController, type: :controller do
   describe "GET #index" do
     it "returns list of answers for a given question" do
 
-      set_auth_header user
+      sign_in user
 
       user = create :user
       user.save!
@@ -36,7 +36,7 @@ RSpec.describe AnswersController, type: :controller do
   describe "POST #create" do
     it "posts answer to question" do
 
-      set_auth_header user
+      sign_in user
 
       u = create :user
       u.save!
