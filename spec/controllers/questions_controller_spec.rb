@@ -7,9 +7,37 @@ RSpec.describe QuestionsController, type: :controller do
   let(:user) { create :user }
   let(:business) { create :business }  
   let(:question) { create :question }
+  let(:answer) { create :answer}
 
   describe "GET #index" do
     it "returns list of posted questions for a business" do
+
+      set_auth_header user
+
+      b = create :business, owner_id: user.id
+      b.save!
+
+      q1 = create :question, user_id: user.id, business_id: business.id
+      q1.save!
+      q2 = create :question, user_id: user.id, business_id: business.id
+      q2.save!
+
+      a1 = create :answer, answerer: user, question_id: q1.id
+      a1.save!
+
+      a2 = create :answer, answerer: user, question_id: q2.id
+      a2.save!
+
+      get :all, params:{ business_id: business.id }
+
+      expect(response).to have_http_status(:ok)
+      expect(parsed_response.class).to eq(Hash)
+
+    end
+  end
+
+  describe "GET #all" do
+    it "returns hash of posted questions => answers for a given business" do
 
       set_auth_header user
 

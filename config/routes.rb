@@ -11,11 +11,15 @@ Rails.application.routes.draw do
 
   root 'users#test'
 
-  resources :questions
   resources :businesses
   resource :surveys
-  resources :answers
   get '/surveys/matches' => 'surveys#matches'
+
+  resources :questions
+  get '/questions/all' => 'questions#all'
+
+  resources :answers
+
 
 
 

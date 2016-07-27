@@ -65,7 +65,11 @@ GET `/answers`, data: `{ question_id: integer }`
 
 - Returns a list of answers for a particular question.
 
+Get `/questions/all`, data: `{ business_id: integer }`
 
+- Returns a hash fo all questions posted to a given business of the form:
+{ Question 1 => [Answer1, Answer2]
+  Question 2 => [Answer1] }
 
 ## User View - Dashbaord
 
