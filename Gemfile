@@ -22,6 +22,7 @@ gem 'omniauth-yelp'
 gem 'pry-rails'
 gem 'travis'
 gem 'pundit'
+gem 'google_places'
 
 group :development, :test do
   gem 'better_errors'
