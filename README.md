@@ -37,6 +37,35 @@ Things you may want to cover:
 
 - Make a request for a businesses' yelp info; pass the business id (id from our db), and we'll pass back the yelp listing.
 
+POST `/surveys`, data: checkbox survey results
+
+- Submit a new user or business survey.
+
+GET `/surveys`
+
+- Get survey results for current user.
+
+GET `/matches`
+
+- Returns list of businesses whose survey matches the current user survey on at least one criterion.
+
+POST `/questions`, data: `{ business_id: integer, question_text: "question" }`
+
+- Submit a question on the Q&A board of a business.
+
+GET `/questions`, data: `{ business_id: integer }`
+
+- Returns a list of questions for a particular business.
+
+POST `/answers`, data: `{ question_id: integer, answer_text: "answer" }`
+
+- Submit an answer to a question on the Q&A board of a business.
+
+GET `/answers`, data: `{ question_id: integer }`
+
+- Returns a list of answers for a particular question.
+
+
 
 ## User View - Dashbaord
 
