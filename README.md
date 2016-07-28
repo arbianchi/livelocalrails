@@ -25,6 +25,23 @@ Things you may want to cover:
 
 ## Routes
 
+### Authentication
+
+POST `/sign_up` with:
+- `username`
+- `email`
+- `password`
+- `zip_code`
+- `first_name`
+- `last_name`
+
+POST `/sign_in` with `username` and `password` params
+
+POST `/sign_out` - signs out the current user
+
+
+### Add'l
+
 GET `/businesses`
 
 - A user's page is populated with local businesses — searches the db
