@@ -62,7 +62,7 @@ GET `/surveys`
 
 - Get survey results for current user.
 
-GET `/matches`
+GET `/surveys/matches`
 
 - Returns list of businesses whose survey matches the current user survey on at least one criterion along with a list of survey questions answered 'true'.Response is of the form:
 { business1 => [lgbt, pets, livWage], business2 => [hiring, glutFree, sustain] }
