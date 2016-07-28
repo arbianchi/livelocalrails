@@ -32,7 +32,7 @@ class YelpGemWrapper
   def self.find_business ops={}
     location    = ops[:location]
     term        = ops[:term]
-    Yelp.client.search(location, {limit: 1, term: term}).businesses
+    Yelp.client.search(location, {limit: 1, term: term}).businesses.first
   end
 
   private
