@@ -12,35 +12,19 @@ class QuestionsController < ApplicationController
       end
     end
 
-    respond_to do |format|
-      format.json { render json: @all.to_json}
-      format.html { not_found }
-    end
+    render json: @all.to_json
   end
 
   def index 
-
     @questions = Question.where(business_id: params["business_id"])
-
-    respond_to do |format|
-      format.json { render json: @questions.to_json}
-      format.html { not_found }
-    end
+    render json: @questions.to_json
   end
 
   def create
     @question = Question.new( approved_params )
 
     if @question.save
-      respond_to do |format|
-        format.json { render json: {"message": "Question submitted."}
-        }
-        format.html { not_found }
-      end
-    else
-      render json: {"message": "Failure."}
-
-      redirect_back fallback_location: '/'
+      render json: {"message": "Question submitted."}
     end
   end
 

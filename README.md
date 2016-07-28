@@ -64,10 +64,10 @@ GET `/surveys`
 
 GET `/matches`
 
-- Returns list of businesses whose survey matches the current user survey on at least one criterion.
+- Returns list of businesses whose survey matches the current user survey on at least one criterion along with a list of survey questions answered 'true'.Response is of the form:
+{ business1 => [lgbt, pets, livWage], business2 => [hiring, glutFree, sustain] }
 
 POST `/questions`, data: `{ business_id: integer, question_text: "question" }`
-
 - Submit a question on the Q&A board of a business.
 
 GET `/questions`, data: `{ business_id: integer }`
