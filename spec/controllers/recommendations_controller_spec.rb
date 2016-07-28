@@ -11,13 +11,13 @@ RSpec.describe RecommendationsController, type: :controller do
 
         sign_in u
 
-        post :create, {business_id: b.id, value: "true"}
+        post :create, {business_id: b.id, value: true}
 
         r = Recommendation.find_by(
           user_id: u.id,
           business_id: b.id
         )
-        expect(r.value).to eq("true")
+        expect(r.value).to eq(true)
 
         expect(response).to have_http_status(:ok)
     end

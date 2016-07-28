@@ -1,25 +1,13 @@
 class SurveysController < ApplicationController
 
   def matches
-
-    matches = []
-
-    business_surveys.each do |biz_survey|
-      Survey.column_names.each do |question|
-        if (biz_survey.send(question) == true) && (user_survey.send(question) == true)
-          matches.push(biz_survey.responder_id)
-        end
-      end
-    end
-
-    @businesses_for_you = matches.map { |m| Business.find(m) }.uniq
+    @matches = get_matches
 
     respond_to do |format|
-      format.json { render json: @businesses_for_you.to_json}
+      format.json { render json: @matches.to_json}
       format.html { not_found }
     end
   end
-
 
   def create
     @survey = Survey.new( approved_params )
@@ -46,6 +34,19 @@ class SurveysController < ApplicationController
 
   def business_surveys
     Survey.where(responder_type: "Business")
+  end
+
+  def get_matches 
+    matches = Hash.new([]) 
+
+    business_surveys.each do |biz_survey|
+      Survey.column_names.each do |question|
+        if (biz_survey.send(question) == true) && (user_survey.send(question) == true)
+          matches[biz_survey.responder] = matches[biz_survey.responder] << question
+        end
+      end
+    end
+    matches 
   end
 
   def not_found
