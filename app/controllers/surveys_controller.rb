@@ -2,28 +2,19 @@ class SurveysController < ApplicationController
 
   def matches
     @matches = get_matches
-
-    respond_to do |format|
-      format.json { render json: @matches.to_json}
-      format.html { not_found }
-    end
+    render json: @matches.to_json
   end
 
   def create
     @survey = Survey.new( approved_params )
-    if @survey.save
+    if @survey.save!
       render json: {"message": "Survey submitted."}
-    else
-      redirect_back fallback_location: '/'
     end
   end
 
   def show
     @survey = Survey.find_by(responder: current_user)
-    respond_to do |format|
-      format.json { render json: @survey.to_json}
-      format.html { not_found }
-    end
+    render json: @survey.to_json
   end
 
   private
