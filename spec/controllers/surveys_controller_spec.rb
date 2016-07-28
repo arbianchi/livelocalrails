@@ -39,24 +39,34 @@ RSpec.describe SurveysController, type: :controller do
   end
 
   describe "get #matches" do
-    it "returns an array of businesses that match the user survey on at least one attribute" do
+    it "returns a of matching businesses and their 'true' criteria" do
 
       sign_in user
 
       user_survey = create :survey, responder: user
       user_survey.save!
 
-      b = create :business
-      b.save!
+      b1 = create :business
+      b1.save!
 
-      10.times do
-        FactoryGirl.create(:survey, responder: b)
-      end
+      b2 = create :business
+      b2.save!
+
+      b3 = create :business
+      b3.save!
+
+      b1_survey = create :survey, responder: b1
+      b1_survey.save!
+      b2_survey = create :survey, responder: b2
+      b2_survey.save!
+
+      b3_survey = create :survey, responder: b3
+      b3_survey.save!
 
       get :matches
 
       expect(response).to have_http_status(:ok)
-      expect(parsed_response.class).to eq(Array)
+      expect(parsed_response.class).to eq(Hash)
     end
   end
 
