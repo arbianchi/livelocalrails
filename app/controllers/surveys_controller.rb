@@ -14,7 +14,7 @@ class SurveysController < ApplicationController
 
   def show
     @survey = Survey.find_by(responder: current_user)
-    render json: user_survey_mockup #@survey.to_json
+    render json: @survey.to_json
   end
 
   private
