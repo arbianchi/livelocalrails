@@ -14,7 +14,7 @@ class SurveysController < ApplicationController
 
   def show
     @survey = Survey.find_by(responder: current_user)
-    render json: @survey.to_json
+    render json: user_survey_mockup #@survey.to_json
   end
 
   private
@@ -27,17 +27,41 @@ class SurveysController < ApplicationController
     Survey.where(responder_type: "Business")
   end
 
-  def get_matches 
-    matches = Hash.new([]) 
+  def get_matches
+    # matches = Hash.new([])
 
-    business_surveys.each do |biz_survey|
-      Survey.column_names.each do |question|
-        if (biz_survey.send(question) == true) && (user_survey.send(question) == true)
-          matches[biz_survey.responder] = matches[biz_survey.responder] << question
-        end
-      end
-    end
-    matches 
+    # business_surveys.each do |biz_survey|
+    #   Survey.column_names.each do |question|
+    #     if (biz_survey.send(question) == true) && (user_survey.send(question) == true)
+    #       matches[biz_survey.responder] = matches[biz_survey.responder] << question
+    #     end
+    #   end
+    # end
+    # matches
+    [
+      {"id"=> "242",
+       "name"=> "Beer Durham",
+       "address"=> "404 Hunt St Ste 110",
+       "phone"=> "9196800770",
+       "survey" =>
+                     ["veganPeta", "petFriend", "artsCrafts", "veganPeta", "petFriend", "artsCrafts", "veganPeta"]},
+      {"id"=> "243",
+       "name"=> "Wine Authorities - Wine Shop",
+       "address"=> "2501 University Dr",
+       "phone"=> "9194892884",
+       "survey" =>
+                     ["charNonprof", "veganPeta", "petFriend", "artsCrafts", "veganPeta", "petFriend", "artsCrafts", "charNonprof", "veganPeta"]},
+      {"id"=> "244",
+       "name"=> "Brandy Wine Cellars ",
+       "address"=> "7011 Fayetteville Rd",
+       "phone"=> "9195446358",
+              "survey" =>
+                     ["charNonprof", "petFriend", "artsCrafts", "veganPeta", "petFriend", "artsCrafts", "charNonprof", "veganPeta"]}
+    ]
+  end
+
+  def user_survey_mockup
+      ["hiring", "musicians", "glutFree"]
   end
 
   def not_found
