@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160725201544) do
+ActiveRecord::Schema.define(version: 20160726175708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,18 @@ ActiveRecord::Schema.define(version: 20160725201544) do
     t.string   "answer_text"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "auth_tokens", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "nonce"
+    t.string   "name"
+    t.datetime "expires_at"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["nonce"], name: "index_auth_tokens_on_nonce", using: :btree
+    t.index ["user_id"], name: "index_auth_tokens_on_user_id", using: :btree
   end
 
   create_table "businesses", force: :cascade do |t|
@@ -100,5 +112,6 @@ ActiveRecord::Schema.define(version: 20160725201544) do
     t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
 
+  add_foreign_key "auth_tokens", "users"
   add_foreign_key "recommendations", "users"
 end

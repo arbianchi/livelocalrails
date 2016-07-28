@@ -15,7 +15,7 @@ RSpec.describe BusinessesController, type: :controller do
   it "allows users to search near their zip code" do
 
     u = create :user, zip_code: "27701"
-    set_auth_header u
+    sign_in u
 
     get :index, :format => :json
     expect(response).to have_http_status(:ok)
@@ -26,7 +26,7 @@ RSpec.describe BusinessesController, type: :controller do
 
   it "allows businesses to find themselves using location and a term" do
     u = user
-    set_auth_header u
+    sign_in u
     yelp_id = "dames-chicken-and-waffles-durham"
 
     get :find_business, {
@@ -47,7 +47,7 @@ RSpec.describe BusinessesController, type: :controller do
   it "can claim businesses i.e. become owner" do
     u = user
     b = business
-    set_auth_header u
+    sign_in u
 
     expect {
       post :claim, id: b.id
@@ -59,7 +59,7 @@ RSpec.describe BusinessesController, type: :controller do
     b = create :business, owner_id: u1.id
     u2 = user
 
-    set_auth_header u2
+    sign_in u2
 
     post :claim, id: b.id
 
@@ -72,7 +72,7 @@ RSpec.describe BusinessesController, type: :controller do
     u = user
     b = attributes_for(:business)
 
-    set_auth_header u
+    sign_in u
 
     expect {
       post :create, {**(b)}
@@ -90,7 +90,7 @@ RSpec.describe BusinessesController, type: :controller do
   xit "makes show available" do
     u = user
 
-    set_auth_header u
+    sign_in u
     get :show, :format => :json, :id => 1
 
     expect(response).to have_http_status(:ok)

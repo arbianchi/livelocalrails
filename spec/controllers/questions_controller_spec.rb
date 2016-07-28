@@ -12,7 +12,7 @@ RSpec.describe QuestionsController, type: :controller do
   describe "GET #index" do
     it "returns list of posted questions for a business" do
 
-      set_auth_header user
+      sign_in user
 
       b = create :business, owner_id: user.id
       b.save!
@@ -39,7 +39,7 @@ RSpec.describe QuestionsController, type: :controller do
   describe "GET #all" do
     it "returns hash of posted questions => answers for a given business" do
 
-      set_auth_header user
+      sign_in user
 
       b = create :business, owner_id: user.id
       q1 = create :question, user_id: user.id, business_id: business.id
@@ -62,7 +62,7 @@ RSpec.describe QuestionsController, type: :controller do
   describe "POST #create" do
     it "posts question to business" do
 
-      set_auth_header user
+      sign_in user
       b = create :business, owner_id: user.id
       b.save!
 
