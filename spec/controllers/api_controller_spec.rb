@@ -19,4 +19,21 @@ RSpec.describe ApiController, type: :controller do
 
     expect(response.code).to eq("200")
   end
+
+  it "can sign out of an account" do
+    u = user
+
+    post :sign_in, {username: u.username, password: "password"}
+    expect(u.token_for "Angular Frontend").
+      to be_truthy
+
+    sign_in u   # needed to post the subsequent request...
+
+    post :sign_out
+    expect(u.token_for "Angular Frontend").
+      to be_falsy
+
+  end
+
+
 end

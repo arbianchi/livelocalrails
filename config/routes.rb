@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   post '/claim' => 'businesses#claim'
   post '/sign_in' => 'api#sign_in'
   post '/sign_up' => 'api#sign_up'
+  post '/sign_out' => 'api#sign_out'
 
   resources :users
 

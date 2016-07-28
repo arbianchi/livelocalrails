@@ -36,6 +36,10 @@ class ApiController < ApplicationController
 
   end
 
+  def sign_out
+    current_user.auth_tokens.each { |t| t.expire! }
+  end
+
   def user_params
     {
       "username"    => params[:username],
