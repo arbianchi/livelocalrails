@@ -37,6 +37,7 @@ class YelpGemWrapper
 
   def self.process_result r
     begin
+      record =
       {
         address:      r.location.address.join(" "),
         zip_code:     r.location.postal_code,
@@ -52,6 +53,7 @@ class YelpGemWrapper
     rescue => e
       binding.pry
     end
+    return record
   end
 
 end
