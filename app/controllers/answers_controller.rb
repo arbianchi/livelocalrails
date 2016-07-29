@@ -8,6 +8,7 @@ class AnswersController < ApplicationController
 
   def create
     @answer = Answer.new( approved_params )
+    AnswersMailer.answers_mailer(current_user).deliver
 
     if @answer.save
       render json: {"message": "Answer submitted."}

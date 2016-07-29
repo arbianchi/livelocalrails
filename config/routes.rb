@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :businesses
   resource :surveys
   get '/surveys/matches' => 'surveys#matches'
+  post '/surveys/business' => 'surveys#business'
 
   resources :questions
   get '/questions/all' => 'questions#all'

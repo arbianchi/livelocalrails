@@ -12,6 +12,14 @@ class SurveysController < ApplicationController
     end
   end
 
+  def business 
+    @survey = Survey.new( business_params )
+    binding.pry
+    if @survey.save!
+      render json: {"message": "Survey submitted."}
+    end
+  end
+
   def show
     @survey = Survey.find_by(responder: current_user)
     render json: @survey.to_json
@@ -57,7 +65,7 @@ class SurveysController < ApplicationController
   end
 
   def user_survey_mockup
-      ["hiring", "musicians", "glutFree"]
+    ["hiring", "musicians", "glutFree"]
   end
 
   def not_found
@@ -66,7 +74,26 @@ class SurveysController < ApplicationController
 
   def approved_params
     params.permit!
-    { responder: current_user,
+    { responder: current_user, 
+      hiring: params[:hiring],
+      glutFree: params[:glutFree],
+      musicians: params[:musicians],
+      lgbt: params[:lgbt],
+      localFood: params[:localFood],
+      minorityOwned: params[:minorityOwned],
+      livWage: params[:livWage],
+      petFriend: params[:petFriend],
+      artsCrafts: params[:artsCrafts],
+      charNonprof: params[:charNonprof],
+      sustain: params[:sustain],
+      veganPeta: params[:veganPeta]
+    }
+
+  end
+
+  def business_params
+    params.permit!
+    { responder: current_user.business, 
       hiring: params[:hiring],
       glutFree: params[:glutFree],
       musicians: params[:musicians],
