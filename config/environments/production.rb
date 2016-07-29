@@ -83,4 +83,19 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  config.action_mailer.delivery_method = :smtp
+  #SMTP settings for mailgun
+  ActionMailer::Base.smtp_settings = {
+    :port           => 587,
+    :address        => "smtp.mailgun.org",
+    :domain         => 'sandboxf135e891ce194de4a0f9391b8e1d5b17.mailgun.org',
+#ENV['domain'],
+    :user_name      => 'postmaster@sandboxf135e891ce194de4a0f9391b8e1d5b17.mailgun.org',
+#ENV['username'],
+    :password       => 'e914e64211ab0fbe916c5b77fed3ecd8', #ENV['password'],
+    :authentication => :plain,
+  }}
+
+  config.time_zone = 'Eastern Time (US & Canada)'
+
 end
