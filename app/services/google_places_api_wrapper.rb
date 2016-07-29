@@ -1,6 +1,5 @@
 GOOGLE_API_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
 
-
 class GooglePlacesAPIWrapper
 
   include Enumerable
@@ -16,7 +15,14 @@ class GooglePlacesAPIWrapper
     location    = ops[:location]
     term        = ops[:term]
     raw_results = GooglePlacesAPI.search({location: location, term: term})
+    binding.pry
     return self.new(raw_results)
+  end
+
+  def each &block
+    @raw_results.each do |r|
+      block.call r
+    end
   end
 
   def process!
@@ -29,19 +35,8 @@ private
 
   def process_result r
     sleep(rand(0..500)/1000.0)
-    result = YelpGemWrapper.find_business(location: r["formatted_address"], term: r["name"])
-    binding.pry
-    return     {
-      address:      r.location.address.join(" "),
-      zip_code:     r.location.postal_code,
-      phone:        r.phone,
-      city:         r.location.city,
-      location:     [r.location.coordinate.latitude,
-                     r.location.coordinate.longitude],
-      image_url:    r.snippet_image_url,
-      website_url:  r.url,
-      categories:   r.categories.join(","),
-      yelp_id:      r.id
-    }
+    yr = YelpGemWrapper.find_business(location: r["formatted_address"], term: r["name"])
+    return unless yr
+    return YelpGemWrapper.process_result(yr)
   end
 end

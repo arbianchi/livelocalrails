@@ -1,6 +1,6 @@
 class GoogleStrategy
 
-  attr_reader :raw_results, :results, :businesses
+  attr_reader :businesses
 
   def initialize ops={}
     @api_request    = GooglePlacesAPIWrapper.for(ops)
