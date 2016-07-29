@@ -34,7 +34,7 @@ class GooglePlacesAPIWrapper
 private
 
   def process_result r
-    sleep(rand(0..500)/1000.0)
+    sleep(rand(0..200)/1000.0)
     yr = YelpGemWrapper.find_business(location: r["formatted_address"], term: r["name"])
     return unless yr
     return YelpGemWrapper.process_result(yr)
