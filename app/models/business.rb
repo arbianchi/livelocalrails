@@ -4,9 +4,9 @@ class Business < ApplicationRecord
   has_many :answers, as: :answerer
   has_many :recommendations,     dependent: :destroy
 
-  validate :phone_number_validation
+#  validate :phone_number_validation
   validates :phone, uniqueness: true
-  after_validation :normalize_phone, on:[ :create, :update ]
+#  after_validation :normalize_phone, on:[ :create, :update ]
 
 
   def normalize_phone
