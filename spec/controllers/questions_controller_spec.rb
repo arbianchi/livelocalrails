@@ -10,7 +10,7 @@ RSpec.describe QuestionsController, type: :controller do
   let(:answer) { create :answer}
 
   describe "GET #index" do
-    xit "returns list of posted questions for a business" do
+    it "returns list of posted questions for a business" do
 
       sign_in user
 
@@ -37,7 +37,7 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe "GET #all" do
-    xit "returns hash of posted questions => answers for a given business" do
+    it "returns hash of posted questions => answers for a given business" do
 
       sign_in user
 

@@ -1,12 +1,12 @@
 class QuestionsMailer < ApplicationMailer
-  default from: "livelocalrails.herokuapp.com"
+  default from: "Pearl"
 
   def questions_mailer business_owner
 
     @owner = business_owner
 
-    mail(to: "", 
-         bcc: "",
+    mail(to: @owner.email, 
+         bcc: "adinab27@gmail.com",
          subject: 'You have a question!')
 
   end
