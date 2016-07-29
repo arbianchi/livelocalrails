@@ -23,6 +23,7 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new( approved_params )
     QuestionsMailer.questions_mailer(User.first).deliver
+    binding.pry
 
     if @question.save
       render json: {"message": "Question submitted."}

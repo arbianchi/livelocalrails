@@ -88,13 +88,11 @@ Rails.application.configure do
   ActionMailer::Base.smtp_settings = {
     :port           => 587,
     :address        => "smtp.mailgun.org",
-    :domain         => 'sandboxf135e891ce194de4a0f9391b8e1d5b17.mailgun.org',
-#ENV['domain'],
-    :user_name      => 'postmaster@sandboxf135e891ce194de4a0f9391b8e1d5b17.mailgun.org',
-#ENV['username'],
-    :password       => 'e914e64211ab0fbe916c5b77fed3ecd8', #ENV['password'],
+    :domain         => ENV['domain'],
+    :user_name      => ENV['username'],
+    :password       => ENV['password'],
     :authentication => :plain,
-  }}
+  }
 
   config.time_zone = 'Eastern Time (US & Canada)'
 
