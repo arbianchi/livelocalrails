@@ -1,4 +1,4 @@
-STRATEGIES = [GoogleStrategy] #,YelpStrategy]
+STRATEGIES = [GoogleStrategy, YelpStrategy]
 
 class BusinessFinder
 
@@ -13,7 +13,6 @@ class BusinessFinder
       @results += o.businesses
       # break_if @results.count > 100
     end
-    binding.pry
     return @results
   end
 end

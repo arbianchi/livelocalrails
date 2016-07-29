@@ -19,7 +19,7 @@ class YelpGemWrapper
 
   def process!
     @raw_results.each do |result|
-      @results.push(self.process_result( result ))
+      @results.push(YelpGemWrapper.process_result( result ))
     end
   end
 
@@ -34,8 +34,6 @@ class YelpGemWrapper
     term        = ops[:term]
     Yelp.client.search(location, {limit: 1, term: term}).businesses.first
   end
-
-  private
 
   def self.process_result r
     begin
