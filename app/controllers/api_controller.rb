@@ -11,6 +11,7 @@ class ApiController < ApplicationController
                "token": @token.nonce,
                "message": "Sign in successful.",
                     "sign_in_count": @user.sign_in_count,
+                    "first_name": @user.first_name
              }
     else
       render status: 400, json: {"message": "error"}
