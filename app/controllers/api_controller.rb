@@ -1,20 +1,19 @@
 class ApiController < ApplicationController
   skip_before_action :authenticate_user!, only: [:register, :sign_in, :sign_up]
 
-  before_action { request.format = :json }
-
   def sign_in
     @user = User.find_by(username: params[:username])
     if @user.valid_password?(params[:password])
       @token = @user.generate_token_for "Angular Frontend"
       render json: {
-               "token": @token.nonce,
-               "message": "Sign in successful.",
-                    "sign_in_count": @user.sign_in_count,
-                    "first_name": @user.first_name
+               token: @token.nonce,
+               message: "Sign in successful.",
+               sign_in_count: @user.sign_in_count,
+               first_name: @user.first_name
+
              }
     else
-      render status: 400, json: {"message": "error"}
+      render status: 400, json: {message: "error"}
     end
   end
 
@@ -26,13 +25,13 @@ class ApiController < ApplicationController
       @token = @user.generate_token_for "Angular Frontend"
 
       render json: {
-               "token": @token.nonce,
-                    "message": "Account successfully created.",
-                    "sign_in_count": @user.sign_in_count
+               token: @token.nonce,
+               message: "Account successfully created.",
+               sign_in_count: @user.sign_in_count
              }
     else
       errors = @user.errors.messages
-      render status: 400, json: {"message": errors }
+      render status: 400, json: {message: errors }
     end
 
   end
