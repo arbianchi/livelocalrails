@@ -51,7 +51,7 @@ class BusinessesController < ApplicationController
   end
 
   def find_business
-    @businesses = UnclaimedBusinesses.for({location: params[:location],term: params[:term]})
+    @businesses = NearbyBusinesses.for({zip_code: params[:location],term: params[:term]})
     render json: @businesses.to_json
   end
 
@@ -62,7 +62,7 @@ class BusinessesController < ApplicationController
       @business.save!
       render json: {"message": "Business successfully claimed."}
     else
-      render json: {"message": "error"}, status: 400
+      render json: {"message": "This business has already been claimed."}, status: 401
     end
   end
 
