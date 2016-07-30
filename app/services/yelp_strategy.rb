@@ -10,7 +10,15 @@ class YelpStrategy
   def create_businesses!
     @api_request.process!
     @api_request.results.each do |result|
-      @businesses.push Business.create(result)
+      binding.pry       # businesses with same yelp id are being created, validations not working; why?
+      b = Business.new(result)
+      begin
+        if b.save!
+          @businesses.push b
+        end
+      rescue ActiveRecord::RecordInvalid => e
+        Rails.logger.debug(e, b)
+      end
     end
   end
 end
