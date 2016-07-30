@@ -4,8 +4,11 @@ class Business < ApplicationRecord
   has_many :answers, as: :answerer
   has_many :recommendations,     dependent: :destroy
 
-#  validate :phone_number_validation
+  #  validate :phone_number_validation
+  validates :name, presence: true
   validates :phone, uniqueness: true
+  validates :yelp_id, uniqueness: true
+
 #  after_validation :normalize_phone, on:[ :create, :update ]
 
 

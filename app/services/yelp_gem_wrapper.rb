@@ -38,7 +38,8 @@ class YelpGemWrapper
   def self.process_result r
     begin
       record =
-      {
+        {
+          name:       r.name,
         address:      r.location.address.join(" "),
         zip_code:     r.location.postal_code,
         phone:        r.phone,
