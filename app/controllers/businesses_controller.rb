@@ -37,10 +37,18 @@ class BusinessesController < ApplicationController
   def update
     @business = Business.find(params[:id])
 
-    if @business.update(article_params)
-      redirect_back fallback_location: '/'
+    if @business.update(
+      name:         params[:name],
+      address:      params[:address],
+      city:         params[:city],
+      zip_code:     params[:zip_code],
+      phone:        params[:phone],
+      image_url:    params[:image_url],
+      website_url:  params[:website_url],
+    )
+      render json: {message: "Business successfully updated."}
     else
-      redirect_back fallback_location: '/'
+      render json: {message: "error"}
     end
   end
 
