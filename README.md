@@ -48,7 +48,9 @@ GET `/businesses`
 
 GET `/find_business`
 
-- A businesses searches for itself to claim itself — this endpoint expects a `location` parameter and a `term` parameter; a productive search might be `22 Friendly Ave` for the location and `Moe's Diner` for the term. Notice the use of street name and restaurant name.
+- A businesses searches for itself to claim itself — this endpoint expects a `location` parameter and a `term` parameter; a productive search might be `22 Friendly Ave, Durham, NC` for the location and `Moe's Diner` for the term. Notice the use of street name and restaurant name.
+
+- If a business has already been claimed, then a 401 status code and error message are sent back.
 
 GET `/yelp`
 
