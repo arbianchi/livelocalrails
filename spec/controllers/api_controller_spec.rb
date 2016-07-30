@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+include Helpers
 RSpec.describe ApiController, type: :controller do
   let(:user) { create(:user, password: "password") }
   it "can sign in to a user account" do
@@ -7,6 +7,7 @@ RSpec.describe ApiController, type: :controller do
 
     post :sign_in, {username: u.username, password: "password"}
     expect(response.code).to eq("200")
+    expect(parsed_response.has_value?(u.first_name)).to be_truthy
   end
 
   it "can sign up for an account" do
