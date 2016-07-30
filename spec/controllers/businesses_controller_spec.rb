@@ -64,7 +64,7 @@ RSpec.describe BusinessesController, type: :controller do
     post :claim, id: b.id
 
     expect(b.reload.owner_id).to eq u1.id
-    expect(response).to have_http_status("400")
+    expect(response).to have_http_status("401")
 
   end
 
