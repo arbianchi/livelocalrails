@@ -1,4 +1,7 @@
+Faker::Config.locale = 'en-US'
+
 FactoryGirl.define do
+
   factory :business do
     name {      "FAKEBIZ: " + Faker::Company.name }
     address {   Faker::Address.street_address }
@@ -11,4 +14,5 @@ FactoryGirl.define do
                  Faker::Address.longitude] }
     yelp_id {   Faker::Code.asin }
   end
+
 end
