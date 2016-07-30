@@ -16,9 +16,9 @@ class RecommendationsController < ApplicationController
     end
 
     if @recommendation.save
-      render json: {"message":"success"}
+      render json: {message: "success"}
     else
-      render json: {"message":"failure"}
+      render json: {message: "failure"}
     end
 
   end
