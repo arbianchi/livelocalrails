@@ -28,9 +28,9 @@ class BusinessesController < ApplicationController
     )
 
     if @business.save
-      render json: {"message":"Business successfully added."}
+      render json: {message: "Business successfully added."}
     else
-      render json: {"message":"error"}
+      render json: {message:"error"}
     end
   end
 
@@ -60,9 +60,9 @@ class BusinessesController < ApplicationController
     unless @business.owner_id.present?
       @business.owner_id = current_user.id
       @business.save!
-      render json: {"message": "Business successfully claimed."}
+      render json: {message: "Business successfully claimed."}
     else
-      render json: {"message": "This business has already been claimed."}, status: 401
+      render json: {message: "This business has already been claimed."}, status: 401
     end
   end
 
