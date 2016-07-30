@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/TIY-LiveLocal/livelocalrails/badges/gpa.svg)](https://codeclimate.com/github/TIY-LiveLocal/livelocalrails)
+
 # README
 
 This README would normally document whatever steps are necessary to get the
