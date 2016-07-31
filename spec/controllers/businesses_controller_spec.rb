@@ -12,7 +12,7 @@ RSpec.describe BusinessesController, type: :controller do
       (r.count == 20)
   end
 
-  it "allows users to search near their zip code" do
+  xit "allows users to search near their zip code" do
 
     u = create :user, zip_code: "27701"
     sign_in u
@@ -45,7 +45,7 @@ RSpec.describe BusinessesController, type: :controller do
 
   end
 
-  xit "can claim businesses i.e. become owner" do
+  it "can claim businesses i.e. become owner" do
     u = user
     b = business
     sign_in u
@@ -55,7 +55,7 @@ RSpec.describe BusinessesController, type: :controller do
     }.to change { b.reload.owner_id }.to eq(u.id)
   end
 
-  xit "cannot claim businesses that are claimed" do
+  it "cannot claim businesses that are claimed" do
     u1 = user
     b = create :business, owner_id: u1.id
     u2 = user
@@ -69,7 +69,7 @@ RSpec.describe BusinessesController, type: :controller do
 
   end
 
-  xit "can create a unique business" do
+  it "can create a unique business" do
     u = user
     b = attributes_for(:business)
 
@@ -95,13 +95,6 @@ RSpec.describe BusinessesController, type: :controller do
 
 
   it "can provide a yelp listing directly"
+  it "makes show available"
 
-  xit "makes show available" do
-    u = user
-
-    sign_in u
-    get :show, :format => :json, :id => 1
-
-    expect(response).to have_http_status(:ok)
-  end
 end
