@@ -1,3 +1,5 @@
+require Rails.root.join("app/services/token_strategy").to_s
+
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -253,25 +255,10 @@ Devise.setup do |config|
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
   #
-  class CustomStrategy < Devise::Strategies::Base
-    def valid?
-      request.env["HTTP_AUTHORIZATION"].present?
-    end
-
-    def authenticate!
-      username = request.env["HTTP_AUTHORIZATION"]
-      user  = User.find_by username: username
-      if user
-        success! user
-      else
-        fail! "No user matches that email"
-      end
-    end
-  end
 
   config.warden do |manager|
-    manager.strategies.add(:auth_header, CustomStrategy)
-    manager.default_strategies(scope: :user).unshift :auth_header
+    manager.strategies.add :token_header, TokenStrategy
+    manager.default_strategies(scope: :user).unshift :token_header
   end
 
   # config.warden do |manager|

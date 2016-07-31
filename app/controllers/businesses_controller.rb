@@ -28,19 +28,27 @@ class BusinessesController < ApplicationController
     )
 
     if @business.save
-      render json: {"message":"Business successfully added."}
+      render json: {message: "Business successfully added."}
     else
-      render json: {"message":"error"}
+      render json: {message:"error"}
     end
   end
 
   def update
     @business = Business.find(params[:id])
 
-    if @business.update(article_params)
-      redirect_back fallback_location: '/'
+    if @business.update(
+      name:         params[:name],
+      address:      params[:address],
+      city:         params[:city],
+      zip_code:     params[:zip_code],
+      phone:        params[:phone],
+      image_url:    params[:image_url],
+      website_url:  params[:website_url],
+    )
+      render json: {message: "Business successfully updated."}
     else
-      redirect_back fallback_location: '/'
+      render json: {message: "error"}
     end
   end
 
@@ -51,7 +59,7 @@ class BusinessesController < ApplicationController
   end
 
   def find_business
-    @businesses = UnclaimedBusinesses.for({location: params[:location],term: params[:term]})
+    @businesses = NearbyBusinesses.for({zip_code: params[:location],term: params[:term]})
     render json: @businesses.to_json
   end
 
@@ -60,9 +68,9 @@ class BusinessesController < ApplicationController
     unless @business.owner_id.present?
       @business.owner_id = current_user.id
       @business.save!
-      render json: {"message": "Business successfully claimed."}
+      render json: {message: "Business successfully claimed."}
     else
-      render json: {"message": "error"}, status: 400
+      render json: {message: "This business has already been claimed."}, status: 401
     end
   end
 

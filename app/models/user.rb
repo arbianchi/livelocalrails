@@ -11,4 +11,27 @@ class User < ApplicationRecord
   has_many :answers, as: :answerer
 
   validates_presence_of :username, :zip_code, :last_name, :first_name
+
+
+  has_many :auth_tokens, dependent: :destroy
+
+  def self.with_token nonce
+    token = AuthToken.active.find_by nonce: nonce
+    token.user if token
+  end
+
+  def token_for name
+    auth_tokens.active.find_by name: name
+  end
+
+  def generate_token_for name
+    # TODO: retry until the nonce really is unique (though this should
+    # already happy unless you are _extraordinarily_ unlucky)
+    auth_tokens.create!(
+      name:       name,
+      nonce:      SecureRandom.uuid,
+      expires_at: 2.weeks.from_now
+    )
+  end
+
 end

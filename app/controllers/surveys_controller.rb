@@ -1,41 +1,20 @@
 class SurveysController < ApplicationController
 
   def matches
-
-    matches = []
-
-    business_surveys.each do |biz_survey|
-      Survey.column_names.each do |question|
-        if (biz_survey.send(question) == true) && (user_survey.send(question) == true)
-          matches.push(biz_survey.responder_id)
-        end
-      end
-    end
-
-    @businesses_for_you = matches.map { |m| Business.find(m) }.uniq
-
-    respond_to do |format|
-      format.json { render json: @businesses_for_you.to_json}
-      format.html { not_found }
-    end
+    @matches = get_matches
+    render json: @matches.to_json
   end
-
 
   def create
     @survey = Survey.new( approved_params )
-    if @survey.save
+    if @survey.save!
       render json: {"message": "Survey submitted."}
-    else
-      redirect_back fallback_location: '/'
     end
   end
 
   def show
     @survey = Survey.find_by(responder: current_user)
-    respond_to do |format|
-      format.json { render json: @survey.to_json}
-      format.html { not_found }
-    end
+    render json: @survey.to_json
   end
 
   private
@@ -46,6 +25,39 @@ class SurveysController < ApplicationController
 
   def business_surveys
     Survey.where(responder_type: "Business")
+  end
+
+  def get_matches
+    match = [] 
+    business_surveys.each do |biz_survey|
+      match.push(biz_survey.responder.attributes.merge(biz_survey.attributes))
+    end
+    match
+
+    # [
+    #   {"id"=> "242",
+    #    "name"=> "Beer Durham",
+    #    "address"=> "404 Hunt St Ste 110",
+    #    "phone"=> "9196800770",
+    #    "survey" =>
+    #                  ["veganPeta", "petFriend", "artsCrafts", "veganPeta", "petFriend", "artsCrafts", "veganPeta"]},
+    #   {"id"=> "243",
+    #    "name"=> "Wine Authorities - Wine Shop",
+    #    "address"=> "2501 University Dr",
+    #    "phone"=> "9194892884",
+    #    "survey" =>
+    #                  ["charNonprof", "veganPeta", "petFriend", "artsCrafts", "veganPeta", "petFriend", "artsCrafts", "charNonprof", "veganPeta"]},
+    #   {"id"=> "244",
+    #    "name"=> "Brandy Wine Cellars ",
+    #    "address"=> "7011 Fayetteville Rd",
+    #    "phone"=> "9195446358",
+    #           "survey" =>
+    #                  ["charNonprof", "petFriend", "artsCrafts", "veganPeta", "petFriend", "artsCrafts", "charNonprof", "veganPeta"]}
+    # ]
+  end
+
+  def user_survey_mockup
+      ["hiring", "musicians", "glutFree"]
   end
 
   def not_found

@@ -8,7 +8,6 @@ gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
-gem 'pundit'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'rails', '>= 5.0.0', '< 5.1'
 gem 'sass-rails', '~> 5.0'
@@ -23,26 +22,27 @@ gem 'pry-rails'
 gem 'travis'
 gem 'pundit'
 gem 'google_places'
+gem 'mailgun-ruby', require: 'mailgun'
+gem 'factory_girl_rails'
+gem 'faker'
 
 group :development, :test do
-  gem 'better_errors'
-  gem 'binding_of_caller'
-  gem 'bullet'
-  gem 'byebug', platform: :mri
-  gem 'factory_girl_rails'
-  gem 'faker'
-  gem 'launchy'
-  gem 'rspec-rails'
+gem 'better_errors'
+gem 'binding_of_caller'
+gem 'bullet'
+gem 'byebug', platform: :mri
+gem 'launchy'
+gem 'rspec-rails'
 end
 
 group :test do
-  gem 'capybara'
+gem 'capybara'
 end
 
 group :development do
-  gem 'listen', '~> 3.0.5'
-  gem 'spring'
-  gem 'spring-commands-rspec'
-  gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'web-console'
+gem 'listen', '~> 3.0.5'
+gem 'spring'
+gem 'spring-commands-rspec'
+gem 'spring-watcher-listen', '~> 2.0.0'
+gem 'web-console'
 end

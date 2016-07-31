@@ -12,10 +12,10 @@ RSpec.describe BusinessesController, type: :controller do
       (r.count == 20)
   end
 
-  it "allows users to search near their zip code" do
+  xit "allows users to search near their zip code" do
 
     u = create :user, zip_code: "27701"
-    set_auth_header u
+    sign_in u
 
     get :index, :format => :json
     expect(response).to have_http_status(:ok)
@@ -27,7 +27,7 @@ RSpec.describe BusinessesController, type: :controller do
 
   xit "allows businesses to find themselves using location and a term" do
     u = user
-    set_auth_header u
+    sign_in u
     yelp_id = "dames-chicken-and-waffles-durham"
 
     get :find_business, {
@@ -48,7 +48,7 @@ RSpec.describe BusinessesController, type: :controller do
   xit "can claim businesses i.e. become owner" do
     u = user
     b = business
-    set_auth_header u
+    sign_in u
 
     expect {
       post :claim, id: b.id
@@ -60,12 +60,12 @@ RSpec.describe BusinessesController, type: :controller do
     b = create :business, owner_id: u1.id
     u2 = user
 
-    set_auth_header u2
+    sign_in u2
 
     post :claim, id: b.id
 
     expect(b.reload.owner_id).to eq u1.id
-    expect(response).to have_http_status("400")
+    expect(response).to have_http_status("401")
 
   end
 
@@ -73,7 +73,7 @@ RSpec.describe BusinessesController, type: :controller do
     u = user
     b = attributes_for(:business)
 
-    set_auth_header u
+    sign_in u
 
     expect {
       post :create, {**(b)}
@@ -83,7 +83,15 @@ RSpec.describe BusinessesController, type: :controller do
     expect(response.code).to eq("200")
   end
 
+  it "can update a business when owner" do
+    u = user
+    b = create :business, owner_id: user.id
+    c = attributes_for(:business)
 
+    sign_in u
+    patch :update, {id: b.id, **(c)}
+    expect(b.reload.name).to eq(c[:name])
+  end
 
 
   it "can provide a yelp listing directly"
@@ -91,7 +99,7 @@ RSpec.describe BusinessesController, type: :controller do
   xit "makes show available" do
     u = user
 
-    set_auth_header u
+    sign_in u
     get :show, :format => :json, :id => 1
 
     expect(response).to have_http_status(:ok)
