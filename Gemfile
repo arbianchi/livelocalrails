@@ -25,6 +25,7 @@ gem 'mailgun-ruby', require: 'mailgun'
 gem 'factory_girl_rails'
 gem 'faker'
 
+
 group :development, :test do
 gem 'better_errors'
 gem 'binding_of_caller'
@@ -36,6 +37,7 @@ end
 
 group :test do
 gem 'capybara'
+gem 'simplecov', :require => false
 end
 
 group :development do
