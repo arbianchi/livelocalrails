@@ -17,7 +17,10 @@ def req(
 end
 
 DefaultAuth = "a@a.com"
+GooglePlaces    = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
 Heroku      = "https://livelocalrails.herokuapp.com"
 Local       = "http://localhost:3000"
+
+
 # Default request is # req :get, host: Local, path: "/", auth: DefaultAuth, body: {}, query: {}
 binding.pry

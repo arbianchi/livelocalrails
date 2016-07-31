@@ -19,7 +19,7 @@ class YelpGemWrapper
 
   def process!
     @raw_results.each do |result|
-      @results.push(process_result( result ))
+      @results.push(YelpGemWrapper.process_result( result ))
     end
   end
 
@@ -32,24 +32,29 @@ class YelpGemWrapper
   def self.find_business ops={}
     location    = ops[:location]
     term        = ops[:term]
-    Yelp.client.search(location, {limit: 1, term: term}).businesses
+    Yelp.client.search(location, {limit: 1, term: term}).businesses.first
   end
 
-  private
-
-  def process_result r
-    {
-      address:      r.location.address.join(" "),
-      zip_code:     r.location.postal_code,
-      phone:        r.phone,
-      city:         r.location.city,
-      location:     [r.location.coordinate.latitude,
-                     r.location.coordinate.longitude],
-      image_url:    r.snippet_image_url,
-      website_url:  r.url,
-      categories:   r.categories.join(","),
-      yelp_id:      r.id
-    }
+  def self.process_result r
+    begin
+      record =
+        {
+          name:       r.name,
+        address:      r.location.address.join(" "),
+        zip_code:     r.location.postal_code,
+        phone:        r.phone,
+        city:         r.location.city,
+        location:     [r.location.coordinate.latitude,
+                       r.location.coordinate.longitude],
+        image_url:    r.snippet_image_url,
+        website_url:  r.url,
+        categories:   r.categories.join(","),
+        yelp_id:      r.id
+      }
+    rescue => e
+      binding.pry
+    end
+    return record
   end
 
 end

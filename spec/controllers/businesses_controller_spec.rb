@@ -19,6 +19,7 @@ RSpec.describe BusinessesController, type: :controller do
 
     get :index, :format => :json
     expect(response).to have_http_status(:ok)
+    binding.pry
 
     expect(response_as_expected? response).
       to be_truthy
@@ -94,13 +95,6 @@ RSpec.describe BusinessesController, type: :controller do
 
 
   it "can provide a yelp listing directly"
+  it "makes show available"
 
-  xit "makes show available" do
-    u = user
-
-    sign_in u
-    get :show, :format => :json, :id => 1
-
-    expect(response).to have_http_status(:ok)
-  end
 end

@@ -1,9 +1,9 @@
-class YelpStrategy
+class LocuStrategy
 
-  attr_reader :raw_results, :results, :businesses
+  attr_reader :businesses
 
   def initialize ops={}
-    @api_request        = YelpGemWrapper.for(ops)
+    @api_request        = LocuAPIWrapper.for(ops)
     @businesses         = []
     @duplicates_count   = 0
   end
