@@ -15,7 +15,6 @@ class GooglePlacesAPIWrapper
     location    = ops[:location]
     term        = ops[:term]
     raw_results = GooglePlacesAPI.search({location: location, term: term})
-    binding.pry
     return self.new(raw_results)
   end
 
@@ -34,7 +33,7 @@ class GooglePlacesAPIWrapper
 private
 
   def process_result r
-    sleep(rand(0..200)/1000.0)
+    sleep( rand(0..64)/1024.0 )
     yr = YelpGemWrapper.find_business(location: r["formatted_address"], term: r["name"])
     return unless yr
     return YelpGemWrapper.process_result(yr)

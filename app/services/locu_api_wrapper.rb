@@ -8,8 +8,8 @@ class LocuAPIWrapper
   end
 
   def self.for ops={}
-    ops[:description]   = ops.delete(:term)
-    ops[:postal_code]   = ops.delete(:location)
+    ops[:description]   = ops[:term]
+    ops[:postal_code]   = ops[:location]
     return self.new(LocuAPI.search( ops ))
   end
 
@@ -26,7 +26,8 @@ class LocuAPIWrapper
     location = r["location"]["locality"] + ", " + r["location"]["region"]
     yr = YelpGemWrapper.find_business(location: location, term: r["name"])
     return unless yr
-    return YelpGemWrapper.process_result(yr)
+    yr2 = YelpGemWrapper.process_result(yr)
+
   end
 
 

@@ -1,4 +1,4 @@
-STRATEGIES = [GoogleStrategy, YelpStrategy, LocuStrategy]
+STRATEGIES = [YelpStrategy, LocuStrategy, GoogleStrategy]
 
 class BusinessFinder
 
@@ -7,22 +7,24 @@ class BusinessFinder
   end
 
   def run ops={}
-   STRATEGIES.each do |strategy|
+    STRATEGIES.each do |strategy|
+#      binding.pry
      o = strategy.new(ops)
      o.create_businesses!
      @results += o.businesses
-     binding.pry
-     # break_if @results.count > 100
+#     binding.pry
+     break if @results.count >= 20
    end
 
-    binding.pry
+#    binding.pry
     #22.times do
     #  @results.push(FactoryGirl.create :business)
     #end
+    @results.compact!        # TODO: place this closer to the source
     return @results
   end
 
-  def page_results
-    binding.pry
-  end
+#  def page_results
+#    binding.pry
+#  end
 end

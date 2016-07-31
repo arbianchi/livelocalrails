@@ -23,8 +23,8 @@ class GooglePlacesAPI
       @raw_results.push @response["results"]
       @raw_results.flatten!
       @next_page_token = @response["next_page_token"]
-      binding.pry
       break unless @next_page_token
+      sleep 2  # From google: "There is a short delay [until page token] will become valid.
     end
   end
 
