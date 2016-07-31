@@ -1,8 +1,8 @@
 class QuestionsController < ApplicationController
 
-  def all 
+  def index 
 
-    questions = Question.where(business_id: params["business_id"])
+    questions = Question.where(business_id: approved_params["business_id"])
 
     @all = {}
 
@@ -11,13 +11,8 @@ class QuestionsController < ApplicationController
         @all[q] = q.answers
       end
     end
-
+    binding.pry
     render json: @all.to_json
-  end
-
-  def index 
-    @questions = Question.where(business_id: params["business_id"])
-    render json: @questions.to_json
   end
 
   def create
@@ -34,7 +29,7 @@ class QuestionsController < ApplicationController
   def approved_params
     params.permit!
     { user_id: current_user.id,
-      business_id: params[:business_id],
+      business_id: Business.find_by(phone: params["phone"]).id,
       question_text: params[:question_text]
     }
   end

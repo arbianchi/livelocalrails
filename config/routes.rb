@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resource :surveys
   get '/surveys/matches' => 'surveys#matches'
 
-  resources :questions
+  resources :questions, defaults: { format: 'json' }
   get '/questions/all' => 'questions#all'
 
   resources :answers

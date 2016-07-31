@@ -20,7 +20,7 @@ class AnswersController < ApplicationController
     params.permit!
 
     { answerer: current_user,
-      question_id: params["question_id"],
+      question_id: params["answer_text"],
       answer_text: params["answer_text"]
     }
   end

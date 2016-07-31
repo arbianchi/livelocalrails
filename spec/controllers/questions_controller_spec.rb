@@ -28,7 +28,7 @@ RSpec.describe QuestionsController, type: :controller do
       a2 = create :answer, answerer: user, question_id: q2.id
       a2.save!
 
-      get :all, params:{ business_id: business.id }
+      get :index, params:{ phone: business.phone }
 
       expect(response).to have_http_status(:ok)
       expect(parsed_response.class).to eq(Hash)

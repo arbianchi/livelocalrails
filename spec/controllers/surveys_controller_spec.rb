@@ -66,7 +66,7 @@ RSpec.describe SurveysController, type: :controller do
       get :matches
 
       expect(response).to have_http_status(:ok)
-      expect(parsed_response.class).to eq(Hash)
+      expect(parsed_response.class).to eq(Array)
     end
   end
 

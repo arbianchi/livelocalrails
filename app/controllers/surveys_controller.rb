@@ -33,27 +33,6 @@ class SurveysController < ApplicationController
       match.push(biz_survey.responder.attributes.merge(biz_survey.attributes))
     end
     match
-
-    # [
-    #   {"id"=> "242",
-    #    "name"=> "Beer Durham",
-    #    "address"=> "404 Hunt St Ste 110",
-    #    "phone"=> "9196800770",
-    #    "survey" =>
-    #                  ["veganPeta", "petFriend", "artsCrafts", "veganPeta", "petFriend", "artsCrafts", "veganPeta"]},
-    #   {"id"=> "243",
-    #    "name"=> "Wine Authorities - Wine Shop",
-    #    "address"=> "2501 University Dr",
-    #    "phone"=> "9194892884",
-    #    "survey" =>
-    #                  ["charNonprof", "veganPeta", "petFriend", "artsCrafts", "veganPeta", "petFriend", "artsCrafts", "charNonprof", "veganPeta"]},
-    #   {"id"=> "244",
-    #    "name"=> "Brandy Wine Cellars ",
-    #    "address"=> "7011 Fayetteville Rd",
-    #    "phone"=> "9195446358",
-    #           "survey" =>
-    #                  ["charNonprof", "petFriend", "artsCrafts", "veganPeta", "petFriend", "artsCrafts", "charNonprof", "veganPeta"]}
-    # ]
   end
 
   def user_survey_mockup
@@ -65,7 +44,6 @@ class SurveysController < ApplicationController
   end
 
   def approved_params
-    params.permit!
     { responder: current_user,
       hiring: params[:hiring],
       glutFree: params[:glutFree],
