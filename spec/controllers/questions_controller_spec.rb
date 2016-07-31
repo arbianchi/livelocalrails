@@ -10,7 +10,7 @@ RSpec.describe QuestionsController, type: :controller do
   let(:answer) { create :answer}
 
   describe "GET #index" do
-    xit "returns list of posted questions for a business" do
+    it "returns list of posted questions for a business" do
 
       sign_in user
 
@@ -50,7 +50,6 @@ RSpec.describe QuestionsController, type: :controller do
       q2.save!
 
       get :show, params:{ business_id: business.id }
-      binding.pry
 
       expect(response).to have_http_status(:ok)
       expect( parsed_response.first["user_id"] ).to eq(user.id)
@@ -61,7 +60,7 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe "POST #create" do
-    xit "posts question to business" do
+    it "posts question to business" do
 
       sign_in user
       b = create :business, owner_id: user.id
