@@ -16,12 +16,13 @@ class NearbyBusinesses
     # go search for some results in background
 
     #BusinessFinderWorker.perform_async(ops)
-    @results += BusinessFinder.new.run(
-      location: zip_code,
-      term: term,
-      strategies: [GoogleStrategy]
-    )
-    return @results
+    #@results += BusinessFinder.new.run(
+    #  location: zip_code,
+    #  term: term,
+    #  strategies: [GoogleStrategy]
+    #)
+    #return @results
+    binding.pry
 
 #    unless @results.present?
 #      @results = BusinessFinder.new.run(location: zip_code, term: term)
