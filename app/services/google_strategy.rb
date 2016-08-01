@@ -9,6 +9,7 @@ class GoogleStrategy
   end
 
   def create_businesses!
+    exit
     @api_request.process!
     @api_request.results.each do |result|
       b = Business.new(result)

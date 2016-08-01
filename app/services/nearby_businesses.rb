@@ -7,15 +7,20 @@ class NearbyBusinesses
 
     # yelp is good, yelp is fast
 
-    @results += BusinessFinder.new.run(
-      location: zip_code,
-      term: term,
-      strategies: [YelpStrategy]
-    )
+    # @results += BusinessFinder.new.run(
+    #   location: zip_code,
+    #   term: term,
+    #   strategies: [YelpStrategy]
+    # )
 
     # go search for some results in background
 
-    BusinessFinderWorker.perform_async(ops)
+    #BusinessFinderWorker.perform_async(ops)
+    @results += BusinessFinder.new.run(
+      location: zip_code,
+      term: term,
+      strategies: [GoogleStrategy]
+    )
     return @results
 
 #    unless @results.present?

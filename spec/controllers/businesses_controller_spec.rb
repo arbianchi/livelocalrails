@@ -12,7 +12,7 @@ RSpec.describe BusinessesController, type: :controller do
       (r.count == 20)
   end
 
-  xit "allows users to search near their zip code" do
+  it "allows users to search near their zip code" do
 
     u = create :user, zip_code: "27701"
     sign_in u
@@ -25,7 +25,7 @@ RSpec.describe BusinessesController, type: :controller do
       to be_truthy
   end
 
-  it "allows businesses to find themselves using location and a term" do
+  xit "allows businesses to find themselves using location and a term" do
     u = user
     sign_in u
     yelp_id = "dames-chicken-and-waffles-durham"
