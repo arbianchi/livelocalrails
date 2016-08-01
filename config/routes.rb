@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   get '/surveys/matches' => 'surveys#matches'
 
   resources :questions
-  get '/questions/all' => 'questions#all'
+  get '/questions/all' => 'questions#show'
 
   resources :answers
 

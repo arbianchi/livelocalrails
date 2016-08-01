@@ -36,7 +36,7 @@ RSpec.describe QuestionsController, type: :controller do
     end
   end
 
-  describe "GET #all" do
+  describe "GET #show" do
     it "returns hash of posted questions => answers for a given business" do
 
       sign_in user
@@ -49,7 +49,7 @@ RSpec.describe QuestionsController, type: :controller do
       q1.save!
       q2.save!
 
-      get :index, params:{ business_id: business.id }
+      get :show, params:{ business_id: business.id }
 
       expect(response).to have_http_status(:ok)
       expect( parsed_response.first["user_id"] ).to eq(user.id)
