@@ -25,7 +25,7 @@ gem 'google_places'
 gem 'mailgun-ruby', require: 'mailgun'
 gem 'factory_girl_rails'
 gem 'faker'
-
+gem 'will_paginate'
 
 group :development, :test do
 gem 'better_errors'
