@@ -7,13 +7,14 @@ class BusinessFinder
   end
 
   def run ops={}
-    STRATEGIES.each do |strategy|
-#      binding.pry
-     o = strategy.new(ops)
-     o.create_businesses!
-     @results += o.businesses
+    strategies = ops[:strategies]
+    strategies.each do |strategy|
+      next unless Object.const_defined?(strategy.to_s)
+      o = strategy.new(ops)
+      o.create_businesses!
+      @results += o.businesses
 #     binding.pry
-     break if @results.count >= 20
+#     break if @results.count >= 20
    end
 
 #    binding.pry

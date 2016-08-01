@@ -5,9 +5,22 @@ class NearbyBusinesses
     term = ops[:term] ||= 'food'
     @results = Business.where(zip_code: zip_code)
 
-    unless @results.present?
-      @results = BusinessFinder.new.run(location: zip_code, term: term)
-    end
+    # yelp is good, yelp is fast
+
+    @results += BusinessFinder.new.run(
+      location: zip_code,
+      term: term,
+      strategies: [YelpStrategy]
+    )
+
+    # go search for some results in background
+
+    BusinessFinderWorker.perform_async(ops)
     return @results
+
+#    unless @results.present?
+#      @results = BusinessFinder.new.run(location: zip_code, term: term)
+#    end
+#    return @results
   end
 end
