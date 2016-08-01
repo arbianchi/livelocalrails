@@ -10,8 +10,9 @@ class BusinessesController < ApplicationController
   end
 
   def index
-    @businesses = NearbyBusinesses.for({zip_code: current_user.zip_code})
-    @businesses = LocalScore.prepare(@businesses)
+    #@businesses = NearbyBusinesses.for({zip_code: current_user.zip_code})
+    #@businesses = LocalScore.prepare(@businesses)
+    @businesses = Business.paginate(:page => params[:page])
     render json: @businesses.to_json
   end
 

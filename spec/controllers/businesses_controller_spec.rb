@@ -93,6 +93,8 @@ RSpec.describe BusinessesController, type: :controller do
     expect(b.reload.name).to eq(c[:name])
   end
 
+  it "can paginate some results"
+
 
   it "can provide a yelp listing directly"
   it "makes show available"
