@@ -4,20 +4,38 @@ class QuestionsController < ApplicationController
 
     questions = Question.where(business_id: params["business_id"])
 
-    @all = {}
+#     @all = {}
+
+#     questions.each do |q|
+#       if q.answers
+#         @all[q.attributes] = q.answers
+#       end
+#     end
+#     binding.pry
+
+#     render json: @all.to_json
+
+    all = []
+    question = []
+    answer = []
 
     questions.each do |q|
       if q.answers
-        @all[q.attributes] = q.answers
+        q.answers.each do |a|
+          # all[q.to_json] = all[q.to_json] << q.answers.to_json
+          question.push(q)
+          answer.push(a)
+        end
       end
     end
-
-    render json: @all.to_json
+    all.push(questions)
+    all.push(answer)
+    render json: all 
   end
 
   def create
     @question = Question.new( approved_params )
-     # QuestionsMailer.questions_mailer(current_user).deliver
+    # QuestionsMailer.questions_mailer(current_user).deliver
 
     if @question.save
       render json: {"message": "Question submitted."}
