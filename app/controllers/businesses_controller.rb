@@ -59,7 +59,7 @@ class BusinessesController < ApplicationController
   end
 
   def find_business
-    if (params[:location].length > 0) && (params[:term].length > 0)
+    if params[:location] && params[:term]
       @businesses = NearbyBusinesses.for({zip_code: params[:location],term: params[:term]})
       render json: @businesses.to_json
     else
