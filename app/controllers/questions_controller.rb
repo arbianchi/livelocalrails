@@ -4,33 +4,16 @@ class QuestionsController < ApplicationController
 
     questions = Question.where(business_id: params["business_id"])
 
-#     @all = {}
-
-#     questions.each do |q|
-#       if q.answers
-#         @all[q.attributes] = q.answers
-#       end
-#     end
-#     binding.pry
-
-#     render json: @all.to_json
-
-    all = []
-    question = []
-    answer = []
+    all = {}
 
     questions.each do |q|
       if q.answers
-        q.answers.each do |a|
-          # all[q.to_json] = all[q.to_json] << q.answers.to_json
-          question.push(q)
-          answer.push(a)
-        end
+        all[q.id] = {question: q, answers: q.answers}
       end
     end
-    all.push(questions)
-    all.push(answer)
-    render json: all 
+
+    render json: all.to_json
+
   end
 
   def create
