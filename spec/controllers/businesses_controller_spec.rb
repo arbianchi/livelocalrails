@@ -24,14 +24,14 @@ RSpec.describe BusinessesController, type: :controller do
       to be_truthy
   end
 
-  xit "allows businesses to find themselves using location and a term" do
+  it "allows businesses to find themselves using location and a term" do
     u = user
     sign_in u
     yelp_id = "dames-chicken-and-waffles-durham"
 
     get :find_business, {
           :location => "317 W Main St, Durham, NC 27701",
-          :term => "Dame's Chicken and Waffles", format: :json
+          :term => "Dame's Chicken and Waffles"
         }
 
     expect(response).to have_http_status(:ok)

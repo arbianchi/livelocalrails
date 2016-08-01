@@ -59,8 +59,12 @@ class BusinessesController < ApplicationController
   end
 
   def find_business
-    @businesses = NearbyBusinesses.for({zip_code: params[:location],term: params[:term]})
-    render json: @businesses.to_json
+    if (params[:location].length > 0) && (params[:term].length > 0)
+      @businesses = NearbyBusinesses.for({zip_code: params[:location],term: params[:term]})
+      render json: @businesses.to_json
+    else
+      render json: {message: "Please provide both a location, and search term."}, status: 400
+    end
   end
 
   def claim
