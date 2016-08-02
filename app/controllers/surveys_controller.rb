@@ -30,13 +30,17 @@ class SurveysController < ApplicationController
   def get_matches
     match = [] 
     business_surveys.each do |biz_survey|
-      match.push(biz_survey.responder.attributes.merge(biz_survey.attributes))
+      Survey.column_names.each do |attr|
+        if (biz_survey.send(attr) == true) && (user_survey.send(attr) == true)
+          match.push(biz_survey.responder.attributes.merge(biz_survey.attributes))
+        end
+      end
     end
     match
   end
 
   def user_survey_mockup
-      ["hiring", "musicians", "glutFree"]
+    ["hiring", "musicians", "glutFree"]
   end
 
   def not_found
