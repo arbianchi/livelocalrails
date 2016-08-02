@@ -4,18 +4,14 @@ class QuestionsController < ApplicationController
 
     questions = Question.where(business_id: params["business_id"])
 
-    all = {}
-    n = 0
+    all = []
 
     questions.each do |q|
       if q.answers
-        all["question#{n}"] = {question: q, answers: q.answers}
-        n += 1
+        all.push({question: q, answers: q.answers})
       end
     end
-
     render json: all.to_json
-
   end
 
   def create
