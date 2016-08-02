@@ -8,7 +8,9 @@ class QuestionsController < ApplicationController
 
     questions.each do |q|
       if q.answers
-        all[q.id] = {question: q, answers: q.answers}
+        n = 0
+        all["question#{n}"] = {question: q, answers: q.answers}
+        n += 1
       end
     end
 
