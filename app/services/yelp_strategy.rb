@@ -13,8 +13,8 @@ class YelpStrategy
     @api_request.results.each do |result|
       b = Business.new(result)
       begin
-        b.save!
         @businesses.push b
+        b.save!
       rescue ActiveRecord::RecordInvalid => e
         @duplicates_count += 1
 
