@@ -1,11 +1,5 @@
 class AnswersController < ApplicationController
 
-  def index 
-    @answers = Answer.where(question_id: params["question_id"])
-
-    render json: @answers.to_json
-  end
-
   def create
     @answer = Answer.new( approved_params )
 
