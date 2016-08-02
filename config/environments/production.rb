@@ -1,4 +1,6 @@
 Rails.application.configure do
+  config.action_mailer.default_url_options = { :host => 'livelocalrails.herokuapp.com' }
+  Rails.application.routes.default_url_options[:host] = 'livelocalrails.herokuapp.com'
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -83,17 +85,32 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-  config.action_mailer.delivery_method = :smtp
-  #SMTP settings for mailgun
-  ActionMailer::Base.smtp_settings = {
-    :port           => 587,
-    :address        => "smtp.mailgun.org",
-    :domain         => ENV['domain'],
-    :user_name      => ENV['username'],
-    :password       => ENV['password'],
-    :authentication => :plain,
-  }
+  # config.action_mailer.delivery_method = :smtp
+  # #SMTP settings for mailgun
+  # ActionMailer::Base.smtp_settings = {
+  #   :port           => 587,
+  #   :address        => "smtp.mailgun.org",
+  #   :domain         => ENV['domain'],
+  #   :user_name      => ENV['username'],
+  #   :password       => ENV['password'],
+  #   :authentication => :plain,
+  # }
 
   config.time_zone = 'Eastern Time (US & Canada)'
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default :charset => "utf-8"
+
+  config.action_mailer.smtp_settings = {
+    address: "smtp.mailgun.org",
+    port: 587,
+    domain: ENV["domain"],
+    authentication: "plain",
+    enable_starttls_auto: true,
+    user_name: ENV["username"],
+    password: ENV["password"]
+  }
 
 end
