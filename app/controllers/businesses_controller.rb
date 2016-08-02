@@ -10,7 +10,10 @@ class BusinessesController < ApplicationController
   end
 
   def index
-    @businesses = NearbyBusinesses.for({zip_code: current_user.zip_code})
+    @businesses = NearbyBusinesses.for(
+     {zip_code: current_user.zip_code,
+      page:     params[:page]}
+    )
     @businesses = LocalScore.prepare(@businesses)
     render json: @businesses.to_json
   end
@@ -60,7 +63,12 @@ class BusinessesController < ApplicationController
 
   def find_business
     if params[:location] && params[:term]
-      @businesses = NearbyBusinesses.for({zip_code: params[:location],term: params[:term]})
+      @businesses = NearbyBusinesses.for(
+        {zip_code:  params[:location],
+         term:      params[:term],
+         page:      params[:page]
+        }
+      )
       render json: @businesses.to_json
     else
       render json: {message: "Please provide both a location, and search term."}, status: 400
