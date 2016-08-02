@@ -5,10 +5,10 @@ class QuestionsController < ApplicationController
     questions = Question.where(business_id: params["business_id"])
 
     all = {}
+    n = 0
 
     questions.each do |q|
       if q.answers
-        n = 0
         all["question#{n}"] = {question: q, answers: q.answers}
         n += 1
       end
