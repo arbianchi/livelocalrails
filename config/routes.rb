@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   get '/find_business' => 'businesses#find_business'
+  get '/yelp'           => 'businesses#yelp'
   post '/claim' => 'businesses#claim'
   post '/sign_in' => 'api#sign_in'
   post '/sign_up' => 'api#sign_up'

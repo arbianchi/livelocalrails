@@ -25,6 +25,23 @@ RSpec.describe BusinessesController, type: :controller do
       to be_truthy
   end
 
+  it "allows businesses to find themselves using just a term" do
+    u = create :user, zip_code: "27701"
+    sign_in u
+    yelp_id = "dames-chicken-and-waffles-durham"
+
+    get :yelp, {:term => "Dame's Chicken and Waffles"}
+    expect(response).to have_http_status(:ok)
+
+    r = JSON.parse response.body
+    expect(r.first["yelp_id"]).to eq(yelp_id)
+
+    expect(r.is_a? Array).
+      to be_truthy
+
+  end
+
+
   it "allows businesses to find themselves using location and a term" do
     u = user
     sign_in u
