@@ -1,7 +1,5 @@
 [![Code Climate](https://codeclimate.com/github/TIY-LiveLocal/livelocalrails/badges/gpa.svg)](https://codeclimate.com/github/TIY-LiveLocal/livelocalrails)
 
-## Routes
-
 ### Authentication
 
 ## To create user
@@ -45,6 +43,8 @@ body:
 
 
 ### Business Search Results - returns businesses based on user preferences and survey answers.
+
+## Routes
 
 ####GET `/businesses`
 
